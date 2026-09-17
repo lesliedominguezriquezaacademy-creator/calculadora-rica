@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Cuánto te cuesta NO actuar? — Riqueza Academy™</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#C7A86A; --gold-p:#F5EDD8; --gold-d:#9A7A3A; --gold-l:#E8D5A3;
+  --rose:#C4838A; --cream:#F8F5F0; --cream-d:#EDE8DF; --cream-dd:#E0D8CC;
+  --char:#2A2A2A; --char-m:#4A4A4A; --char-l:#7A7A7A; --char-xl:#AEAEAE;
+  --green:#4A7A5A; --green-p:#D0E8D8;
+  --amber:#C7A86A; --amber-p:#F5EDD8;
+  --red:#9A3A3A; --red-p:#F5D5D5;
+  --white:#FFFFFF;
+  --sh:0 4px 24px rgba(42,42,42,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--char);min-height:100vh;}
+
+/* HERO — premium gold background */
+.hero{
+  background: linear-gradient(145deg, #E8C97A 0%, #D4AA55 35%, #EDD88A 65%, #E2C070 100%);
+  padding:56px 24px 48px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+#money-canvas{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  pointer-events:none;
+  z-index:0;
+  opacity:.75;
+}
+.hero::after{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,rgba(255,255,255,.4),transparent);
+}
+.hero > *{position:relative;z-index:1;}
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,6vw,58px);
+  font-weight:700;
+  color:#6B3A1F;
+  line-height:1.08;
+  margin-bottom:12px;
+  text-shadow:0 1px 2px rgba(255,255,255,.3);
+}
+.hero-title em{
+  color:#FFFFFF;
+  font-style:italic;
+  font-weight:600;
+  text-shadow:0 1px 6px rgba(107,58,31,.35);
+}
+.hero-eye{
+  font-size:10px;letter-spacing:3.5px;text-transform:uppercase;
+  color:rgba(107,58,31,.65);font-weight:500;margin-bottom:16px;
+}
+.hero-sub{
+  font-size:15px;
+  color:rgba(107,58,31,.80);
+  font-weight:300;
+  max-width:480px;
+  margin:0 auto 28px;
+  line-height:1.65;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(107,58,31,.10);
+  border:1px solid rgba(107,58,31,.22);
+  color:rgba(107,58,31,.80);
+  padding:9px 22px;border-radius:30px;
+  font-size:11px;font-weight:500;letter-spacing:0.8px;
+  backdrop-filter:blur(4px);
+}
+
+/* PROGRESS */
+.progress-wrap{background:var(--white);border-bottom:1px solid var(--cream-d);padding:14px 24px;position:sticky;top:0;z-index:40;box-shadow:0 2px 8px rgba(42,42,42,.05);}
+.progress-inner{max-width:680px;margin:0 auto;}
+.progress-steps{display:flex;justify-content:space-between;margin-bottom:10px;}
+.step-dot{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.step-circle{width:26px;height:26px;border-radius:50%;border:2px solid var(--cream-dd);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--char-xl);transition:all .3s;}
+.step-dot.done .step-circle{background:var(--green);border-color:var(--green);color:var(--white);}
+.step-dot.active .step-circle{background:var(--gold);border-color:var(--gold);color:var(--white);}
+.step-name{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--char-xl);}
+.step-dot.active .step-name{color:var(--gold);}
+.step-dot.done .step-name{color:var(--green);}
+.prog-bg{height:4px;background:var(--cream-d);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(to right,var(--gold),var(--gold-d));border-radius:2px;transition:width .5s ease;}
+
+/* CONTAINER */
+.wrap{max-width:680px;margin:0 auto;padding:32px 20px 80px;}
+
+/* STEP PANELS */
+.step{display:none;animation:fadeUp .35s ease;}
+.step.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* CARDS */
+.card{background:var(--white);border-radius:18px;padding:28px 28px 24px;box-shadow:var(--sh);margin-bottom:16px;}
+.card-eye{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:8px;}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;line-height:1.2;margin-bottom:6px;}
+.card-sub{font-size:13px;color:var(--char-l);font-weight:300;line-height:1.5;margin-bottom:22px;}
+
+/* OPCIÓN GRID */
+.opt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;}
+.opt-grid.cols3{grid-template-columns:repeat(3,1fr);}
+.opt{
+  padding:14px 12px;border-radius:12px;border:2px solid var(--cream-d);
+  background:var(--cream);cursor:pointer;text-align:left;
+  font-family:'Jost',sans-serif;transition:all .2s;
+  display:flex;flex-direction:column;gap:4px;
+}
+.opt:hover{border-color:var(--gold-l);background:var(--gold-p);}
+.opt.sel{border-color:var(--gold);background:var(--gold-p);}
+.opt-ico{font-size:22px;}
+.opt-lbl{font-size:13px;font-weight:600;color:var(--char);}
+.opt-sub{font-size:11px;color:var(--char-l);font-weight:300;line-height:1.3;}
+
+/* SLIDERS */
+.sl-wrap{margin-bottom:8px;}
+.sl-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--char-xl);margin-bottom:8px;}
+input[type=range]{
+  width:100%;-webkit-appearance:none;appearance:none;
+  height:6px;border-radius:3px;outline:none;cursor:pointer;
+  background:linear-gradient(to right,var(--gold) 0%,var(--gold) var(--pct,50%),var(--cream-d) var(--pct,50%));
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+  background:var(--gold);border:3px solid var(--white);
+  box-shadow:0 2px 8px rgba(199,168,106,.5);cursor:pointer;transition:transform .15s;
+}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15);}
+.sl-val{text-align:center;margin-top:12px;font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);}
+.sl-val span{font-size:14px;font-family:'Jost',sans-serif;color:var(--char-l);font-weight:300;}
+
+/* SALARIO CALCULADO */
+.sal-box{margin-top:18px;background:var(--cream);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.sal-cell{text-align:center;flex:1;}
+.sal-cell-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--char-l);font-weight:500;margin-bottom:4px;}
+.sal-cell-val{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;}
+.sal-op{font-size:18px;color:var(--char-xl);}
+
+/* BRECHA 3 NÚMEROS */
+.brecha-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:18px;}
+.brecha-cell{border-radius:12px;padding:14px;text-align:center;}
+.brecha-cell.pagado{background:var(--red-p);}
+.brecha-cell.vale{background:var(--green-p);}
+.brecha-cell.diff{background:var(--char);}
+.brecha-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:6px;}
+.brecha-cell.pagado .brecha-lbl{color:var(--red);}
+.brecha-cell.vale .brecha-lbl{color:var(--green);}
+.brecha-cell.diff .brecha-lbl{color:var(--gold-l);}
+.brecha-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;line-height:1;}
+.brecha-cell.pagado .brecha-num{color:var(--red);}
+.brecha-cell.vale .brecha-num{color:var(--green);}
+.brecha-cell.diff .brecha-num{color:var(--gold);}
+.brecha-note{font-size:10px;margin-top:4px;}
+.brecha-cell.pagado .brecha-note{color:var(--char-l);}
+.brecha-cell.vale .brecha-note{color:var(--char-l);}
+.brecha-cell.diff .brecha-note{color:rgba(255,255,255,.4);}
+
+.brecha-anual{margin-top:12px;background:var(--char);border-radius:12px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.ba-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-l);font-weight:300;}
+.ba-formula{font-size:11px;color:rgba(255,255,255,.3);margin-top:2px;}
+.ba-num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#E88080;}
+.ba-sub{font-size:10px;color:rgba(255,255,255,.3);text-align:right;}
+
+/* MENSAJE DINÁMICO */
+.msg-box{margin-top:12px;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.5;display:none;}
+.msg-box.info{background:var(--gold-p);border:1px solid var(--gold-l);color:var(--char-m);}
+.msg-box.ok{background:var(--green-p);border:1px solid #90C8A0;color:#2A5A3A;}
+.msg-box.warn{background:#FFF3F0;border:1px solid #E0A0A0;color:#7A3030;}
+
+/* CHECKS */
+.check-list{display:flex;flex-direction:column;gap:8px;}
+.chk{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;border:2px solid var(--cream-d);background:var(--cream);cursor:pointer;transition:all .2s;}
+.chk:hover{border-color:var(--gold-l);}
+.chk.sel{border-color:var(--gold);background:var(--gold-p);}
+.chk-box{width:20px;height:20px;border-radius:6px;border:2px solid var(--cream-dd);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;background:var(--white);transition:all .2s;}
+.chk.sel .chk-box{background:var(--gold);border-color:var(--gold);color:var(--white);}
+.chk-txt{font-size:13px;color:var(--char);}
+
+/* ALERT */
+.alert{margin-top:12px;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.5;display:none;}
+.alert.warn{background:#FFF3F0;border:1px solid #E0A0A0;color:#7A3030;}
+.alert.ok{background:#F0FAF3;border:1px solid #90C8A0;color:#2A5A3A;}
+.alert.info{background:var(--gold-p);border:1px solid var(--gold-l);color:var(--char-m);}
+
+/* NAV BUTTONS */
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px;}
+.btn-back{background:none;border:1px solid var(--cream-d);color:var(--char-l);padding:12px 22px;border-radius:10px;font-family:'Jost',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;}
+.btn-back:hover{border-color:var(--char-l);color:var(--char);}
+.btn-next{background:var(--gold);color:var(--white);border:none;padding:14px 32px;border-radius:10px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s;flex:1;max-width:240px;}
+.btn-next:hover:not(:disabled){background:var(--gold-d);transform:translateY(-1px);box-shadow:0 4px 16px rgba(199,168,106,.4);}
+.btn-next:disabled{background:var(--cream-dd);color:var(--char-xl);cursor:not-allowed;transform:none;box-shadow:none;}
+
+/* RESULTADOS */
+.res-hero{background:var(--char);border-radius:18px;padding:32px;margin-bottom:16px;}
+.res-eye{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-l);font-weight:300;margin-bottom:8px;}
+.res-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3.5vw,30px);font-weight:600;color:var(--white);line-height:1.2;margin-bottom:20px;}
+.res-title em{color:var(--gold);font-style:italic;}
+.costo-box{background:rgba(154,58,58,.15);border:1px solid rgba(154,58,58,.3);border-radius:12px;padding:20px;text-align:center;margin-bottom:12px;}
+.costo-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px;}
+.costo-num{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,8vw,70px);font-weight:700;color:#E88080;line-height:1;}
+.costo-sub{font-size:13px;color:rgba(255,255,255,.35);margin-top:4px;}
+.roi-box{background:rgba(74,122,90,.15);border:1px solid rgba(74,122,90,.3);border-radius:12px;padding:16px;text-align:center;}
+.roi-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px;}
+.roi-num{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:#80C890;}
+.roi-sub{font-size:11px;color:rgba(255,255,255,.35);margin-top:2px;}
+
+.bk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:14px;}
+.bk{background:var(--white);border-radius:12px;padding:18px;box-shadow:var(--sh);border-top:3px solid var(--cream-d);}
+.bk.red{border-top-color:var(--red);}
+.bk.gold{border-top-color:var(--gold);}
+.bk.green{border-top-color:var(--green);}
+.bk.rose{border-top-color:var(--rose);}
+.bk-ico{font-size:22px;margin-bottom:6px;}
+.bk-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--char-l);font-weight:500;margin-bottom:4px;}
+.bk-val{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;margin-bottom:4px;}
+.bk.red .bk-val{color:var(--red);}
+.bk.gold .bk-val{color:var(--gold);}
+.bk.green .bk-val{color:var(--green);}
+.bk.rose .bk-val{font-size:16px;color:var(--rose);}
+.bk-note{font-size:11px;color:var(--char-l);font-weight:300;line-height:1.4;}
+
+.persona-card{background:var(--white);border-radius:14px;padding:22px;box-shadow:var(--sh);margin-bottom:14px;border-left:4px solid var(--gold);}
+.persona-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;margin-bottom:10px;}
+.persona-text{font-size:13px;color:var(--char-m);font-weight:300;line-height:1.7;}
+
+.tl-card{background:var(--white);border-radius:14px;padding:22px;box-shadow:var(--sh);margin-bottom:14px;}
+.tl-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;margin-bottom:14px;}
+.tl-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--cream);flex-wrap:wrap;gap:8px;}
+.tl-row:last-child{border-bottom:none;}
+.tl-period{font-size:13px;font-weight:500;}
+.tl-values{display:flex;gap:20px;text-align:right;}
+.tl-lbl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--char-xl);}
+.tl-cost{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--red);}
+.tl-gain{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--green);}
+
+.ins-box{background:var(--char);border-radius:12px;padding:18px 20px;margin-bottom:14px;display:flex;gap:12px;}
+.ins-ico{font-size:18px;flex-shrink:0;margin-top:2px;}
+.ins-txt{font-size:13px;color:rgba(255,255,255,.65);font-weight:300;line-height:1.6;}
+.ins-txt strong{color:var(--gold-l);}
+
+.decision-card{background:linear-gradient(135deg,var(--gold-p),var(--cream));border:2px solid var(--gold-l);border-radius:18px;padding:28px;margin-bottom:14px;text-align:center;}
+.dc-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;margin-bottom:6px;}
+.dc-title em{color:var(--gold-d);font-style:italic;}
+.dc-sub{font-size:13px;color:var(--char-l);font-weight:300;margin-bottom:20px;line-height:1.6;}
+.dc-vs{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-bottom:20px;}
+.dc-opt{background:var(--white);border-radius:12px;padding:16px;}
+.dc-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:6px;}
+.dc-lbl.r{color:var(--red);}
+.dc-lbl.g{color:var(--green);}
+.dc-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;margin-bottom:4px;}
+.dc-num.r{color:var(--red);}
+.dc-num.g{color:var(--green);}
+.dc-note{font-size:11px;color:var(--char-l);font-weight:300;line-height:1.4;}
+.dc-sep{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--char-xl);}
+.cta-btn{display:block;width:100%;max-width:380px;margin:0 auto;background:var(--gold);color:var(--white);padding:17px 32px;border-radius:12px;border:none;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.cta-btn:hover{background:var(--gold-d);transform:translateY(-2px);box-shadow:0 6px 20px rgba(199,168,106,.5);}
+.cta-note{font-size:11px;color:var(--char-xl);margin-top:8px;}
+.share-row{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
+.share-btn{padding:9px 18px;border-radius:8px;border:1px solid var(--cream-d);background:var(--white);cursor:pointer;font-family:'Jost',sans-serif;font-size:12px;color:var(--char-l);transition:all .2s;display:flex;align-items:center;gap:5px;}
+.share-btn:hover{border-color:var(--gold);color:var(--gold);}
+
+footer{text-align:center;padding:24px;font-size:10px;color:var(--char-xl);letter-spacing:2px;text-transform:uppercase;border-top:1px solid var(--cream-d);}
+
+@media(max-width:600px){
+  .card{padding:20px 16px;}
+  .opt-grid.cols3{grid-template-columns:1fr 1fr 1fr;}
+  .brecha-grid{grid-template-columns:1fr;}
+  .dc-vs{grid-template-columns:1fr;}.dc-sep{display:none;}
+  .nav{flex-direction:column-reverse;}.btn-next{max-width:100%;}
+}
+
+/* ══════════════════════════════
+   STEP CAPTURA (4.5)
+══════════════════════════════ */
+.capture-wrap {
+  text-align: center;
+  padding: 8px 0 24px;
+}
+.capture-ico {
+  font-size: 52px;
+  margin-bottom: 16px;
+  display: block;
+  animation: bounceIn .5s ease;
+}
+@keyframes bounceIn {
+  0%  { transform: scale(.6); opacity:0; }
+  70% { transform: scale(1.1); }
+  100%{ transform: scale(1); opacity:1; }
+}
+.capture-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.capture-title em { color: var(--gold); font-style: italic; }
+.capture-sub {
+  font-size: 14px;
+  color: var(--char-l);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 440px;
+  margin: 0 auto 28px;
+}
+.capture-preview {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--cream);
+  border: 1px solid var(--cream-dd);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+.capture-preview-book {
+  width: 52px;
+  height: 70px;
+  background: linear-gradient(145deg, var(--gold), var(--gold-d));
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  box-shadow: 3px 3px 12px rgba(199,168,106,.3);
+}
+.capture-preview-text {}
+.capture-preview-label {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-d);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.capture-preview-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.capture-preview-desc {
+  font-size: 12px;
+  color: var(--char-l);
+  font-weight: 300;
+}
+.capture-form {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+.capture-input {
+  width: 100%;
+  padding: 15px 18px;
+  border: 2px solid var(--cream-d);
+  border-radius: 10px;
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  color: var(--char);
+  background: var(--white);
+  outline: none;
+  transition: border-color .2s;
+}
+.capture-input:focus { border-color: var(--gold); }
+.capture-input::placeholder { color: var(--char-xl); }
+.capture-btn {
+  width: 100%;
+  padding: 16px 24px;
+  background: var(--gold);
+  color: var(--white);
+  border: none;
+  border-radius: 10px;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .2s;
+  position: relative;
+  overflow: hidden;
+}
+.capture-btn:hover { background: var(--gold-d); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(199,168,106,.4); }
+.capture-btn:disabled { background: var(--cream-dd); color: var(--char-xl); cursor: not-allowed; transform: none; box-shadow: none; }
+.capture-privacy {
+  font-size: 11px;
+  color: var(--char-xl);
+  text-align: center;
+  margin-top: 4px;
+}
+.capture-skip {
+  font-size: 12px;
+  color: var(--char-xl);
+  text-align: center;
+  margin-top: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.capture-skip:hover { color: var(--char-l); }
+.result-preview-box {
+  background: var(--char);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.rpb-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+.rpb-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: #E88080;
+  line-height: 1;
+  filter: blur(0px);
+}
+.rpb-num.locked { filter: blur(6px); user-select: none; }
+.rpb-sub { font-size: 11px; color: rgba(255,255,255,.3); margin-top: 3px; }
+.lock-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(199,168,106,.15);
+  border: 1px solid rgba(199,168,106,.3);
+  border-radius: 100px;
+  padding: 8px 16px;
+  font-size: 12px;
+  color: var(--gold-l);
+  white-space: nowrap;
+}
+
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <canvas id="money-canvas"></canvas>
+  <div class="hero-eye">Riqueza Academy™ · Diagnóstico de Valor</div>
+  <div class="hero-title">¿Cuánto te cuesta<br><em>no actuar hoy?</em></div>
+  <div class="hero-sub">4 minutos para descubrir el dinero que tu experiencia deja sobre la mesa <span style="color:#FFFFFF;font-style:italic;font-weight:500;font-size:17px;display:block;margin-top:4px;">cada mes.</span></div>
+  <div class="hero-badge">🔒 Solo para ti · Sin compromiso · Gratuito</div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <div class="progress-steps" id="progSteps"></div>
+    <div class="prog-bg"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ══════════ STEP 1 ══════════ -->
+<div class="step active" id="s1">
+
+  <div class="card">
+    <div class="card-eye">Paso 1 de 5 · Tu perfil</div>
+    <div class="card-title">¿Cómo prefieres que te hablemos?</div>
+    <div class="card-sub">El diagnóstico se adapta completamente a ti.</div>
+    <div class="opt-grid cols3" id="g-genero">
+      <div class="opt" onclick="pick('genero',this,'f','g-genero')">
+        <span class="opt-ico">👩</span>
+        <span class="opt-lbl">Ella / su</span>
+        <span class="opt-sub">Lenguaje femenino</span>
+      </div>
+      <div class="opt" onclick="pick('genero',this,'m','g-genero')">
+        <span class="opt-ico">👨</span>
+        <span class="opt-lbl">Él / su</span>
+        <span class="opt-sub">Lenguaje masculino</span>
+      </div>
+      <div class="opt" onclick="pick('genero',this,'n','g-genero')">
+        <span class="opt-ico">🧑</span>
+        <span class="opt-lbl">Neutro</span>
+        <span class="opt-sub">Sin género específico</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-eye">Tu experiencia acumulada</div>
+    <div class="card-title">¿Cuántos años de experiencia profesional tienes?</div>
+    <div class="card-sub">Tu experiencia acumulada es el activo más valioso que tienes.</div>
+    <div class="sl-wrap">
+      <div class="sl-labels"><span>5 años</span><span>15 años</span><span>25+ años</span></div>
+      <input type="range" id="sl-anos" min="5" max="30" value="15" oninput="slAnos(this)">
+      <div class="sl-val" id="sv-anos">15 <span>años</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-eye">Tu área de expertise</div>
+    <div class="card-title">¿En qué área está tu conocimiento más valioso?</div>
+    <div class="card-sub">Selecciona la que mejor te representa.</div>
+    <div class="opt-grid" id="g-area">
+      <div class="opt" onclick="pick('area',this,'salud','g-area')"><span class="opt-ico">🌿</span><span class="opt-lbl">Salud & Bienestar</span><span class="opt-sub">Nutrición, coaching, psicología</span></div>
+      <div class="opt" onclick="pick('area',this,'negocios','g-area')"><span class="opt-ico">💼</span><span class="opt-lbl">Negocios & Finanzas</span><span class="opt-sub">Consultoría, estrategia</span></div>
+      <div class="opt" onclick="pick('area',this,'educacion','g-area')"><span class="opt-ico">📚</span><span class="opt-lbl">Educación & Desarrollo</span><span class="opt-sub">Formación, liderazgo</span></div>
+      <div class="opt" onclick="pick('area',this,'creatividad','g-area')"><span class="opt-ico">🎨</span><span class="opt-lbl">Creatividad & Diseño</span><span class="opt-sub">Arte, comunicación</span></div>
+      <div class="opt" onclick="pick('area',this,'tech','g-area')"><span class="opt-ico">💻</span><span class="opt-lbl">Tecnología & IA</span><span class="opt-sub">Sistemas, innovación</span></div>
+      <div class="opt" onclick="pick('area',this,'otro','g-area')"><span class="opt-ico">✨</span><span class="opt-lbl">Otra área</span><span class="opt-sub">Cualquier expertise</span></div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <div></div>
+    <button class="btn-next" id="btn1" onclick="go(2)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ══════════ STEP 2 ══════════ -->
+<div class="step" id="s2">
+
+  <div class="card">
+    <div class="card-eye">Paso 2 de 5 · Tu situación actual</div>
+    <div class="card-title">¿Cuánto te pagan por hora?</div>
+    <div class="card-sub">Si tienes salario fijo, divídelo entre las horas reales que trabajas. Este es el precio que alguien puso a tu tiempo.</div>
+    <div class="sl-wrap">
+      <div class="sl-labels"><span>$5</span><span>$75</span><span>$150+</span></div>
+      <input type="range" id="sl-tarifa" min="5" max="150" value="25" oninput="calcSal()">
+      <div class="sl-val" id="sv-tarifa">$25 <span>/ hora</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-eye">Tu tiempo vendido</div>
+    <div class="card-title">¿Cuántas horas por semana trabajas para otra persona u organización?</div>
+    <div class="card-sub">Cualquier compromiso donde tu tiempo ya está vendido a alguien más.</div>
+    <div class="sl-wrap">
+      <div class="sl-labels"><span>5 h</span><span>25 h</span><span>50 h</span></div>
+      <input type="range" id="sl-hotro" min="5" max="50" value="40" oninput="calcSal()">
+      <div class="sl-val" id="sv-hotro">40 <span>h / semana</span></div>
+    </div>
+    <div class="sal-box">
+      <div class="sal-cell"><div class="sal-cell-lbl">Tarifa pagada</div><div class="sal-cell-val" id="sal-t" style="color:var(--red)">$25/h</div></div>
+      <div class="sal-op">×</div>
+      <div class="sal-cell"><div class="sal-cell-lbl">Horas / sem</div><div class="sal-cell-val" id="sal-h">40</div></div>
+      <div class="sal-op">×</div>
+      <div class="sal-cell"><div class="sal-cell-lbl">Semanas / mes</div><div class="sal-cell-val">4.3</div></div>
+      <div class="sal-op">=</div>
+      <div class="sal-cell" style="background:var(--white);border-radius:10px;padding:10px;">
+        <div class="sal-cell-lbl">Tu salario mensual</div>
+        <div class="sal-cell-val" id="sal-total" style="color:var(--amber)">$4,300</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-eye">Tu margen de libertad</div>
+    <div class="card-title">¿Cuántas horas por semana puedes dedicar a <em>tu propio</em> negocio digital?</div>
+    <div class="card-sub">El Método Rica IA™ requiere un <strong>mínimo de 4–6 horas semanales</strong> para ver resultados reales.</div>
+    <div class="opt-grid" id="g-horas">
+      <div class="opt" onclick="pick('horas',this,2,'g-horas');alertHoras(2)"><span class="opt-ico">⚠️</span><span class="opt-lbl">1–3 horas</span><span class="opt-sub">Bajo el mínimo recomendado</span></div>
+      <div class="opt" onclick="pick('horas',this,5,'g-horas');alertHoras(5)"><span class="opt-ico">✅</span><span class="opt-lbl">4–6 horas</span><span class="opt-sub">Mínimo viable</span></div>
+      <div class="opt" onclick="pick('horas',this,10,'g-horas');alertHoras(10)"><span class="opt-ico">⚡</span><span class="opt-lbl">7–12 horas</span><span class="opt-sub">Crecimiento activo</span></div>
+      <div class="opt" onclick="pick('horas',this,20,'g-horas');alertHoras(20)"><span class="opt-ico">🚀</span><span class="opt-lbl">12+ horas</span><span class="opt-sub">Alta dedicación</span></div>
+    </div>
+    <div class="alert" id="alert-horas"></div>
+  </div>
+
+  <div class="nav">
+    <button class="btn-back" onclick="go(1)">← Atrás</button>
+    <button class="btn-next" id="btn2" onclick="go(3)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ══════════ STEP 3 ══════════ -->
+<div class="step" id="s3">
+
+  <div class="card">
+    <div class="card-eye">Paso 3 de 5 · La brecha de valor</div>
+    <div class="card-title">¿Cuánto crees que vale realmente tu hora de conocimiento?</div>
+    <div class="card-sub">No lo que te pagan — lo que <em>produce</em> tu conocimiento en quien trabaja contigo o aprende de ti.</div>
+    <div class="sl-wrap">
+      <div class="sl-labels"><span>$20</span><span>$150</span><span>$500+</span></div>
+      <input type="range" id="sl-valor" min="20" max="500" step="10" value="100" oninput="calcBrecha()">
+      <div class="sl-val" id="sv-valor">$100 <span>/ hora</span></div>
+    </div>
+    <div class="brecha-grid">
+      <div class="brecha-cell pagado">
+        <div class="brecha-lbl">Lo que te pagan</div>
+        <div class="brecha-num" id="b-pagado">$25</div>
+        <div class="brecha-note">por hora</div>
+      </div>
+      <div class="brecha-cell vale">
+        <div class="brecha-lbl">Lo que vale</div>
+        <div class="brecha-num" id="b-vale">$100</div>
+        <div class="brecha-note">por hora</div>
+      </div>
+      <div class="brecha-cell diff">
+        <div class="brecha-lbl">Diferencia</div>
+        <div class="brecha-num" id="b-diff">$75</div>
+        <div class="brecha-note">no capturada</div>
+      </div>
+    </div>
+    <div class="brecha-anual">
+      <div>
+        <div class="ba-label">Lo que pierdes al año</div>
+        <div class="ba-formula" id="b-formula">$75 × 40h × 52 sem</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="ba-num" id="b-anual">$156,000</div>
+        <div class="ba-sub">al año · alguien más captura esto</div>
+      </div>
+    </div>
+    <div class="msg-box" id="msg-brecha"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-eye">El modelo que te atrapa</div>
+    <div class="card-title">¿Cómo cobras actualmente tu conocimiento?</div>
+    <div class="card-sub">La forma en que cobras determina cuánto puedes ganar — no cuánto sabes.</div>
+    <div class="opt-grid" id="g-modelo">
+      <div class="opt" onclick="pick('modelo',this,'hora','g-modelo');msgModelo('hora')"><span class="opt-ico">⏱️</span><span class="opt-lbl">Por hora</span><span class="opt-sub">Gano mientras trabajo. Si paro, para el ingreso.</span></div>
+      <div class="opt" onclick="pick('modelo',this,'proyecto','g-modelo');msgModelo('proyecto')"><span class="opt-ico">📋</span><span class="opt-lbl">Por proyecto</span><span class="opt-sub">Cobro por entregable, pero depende de mí.</span></div>
+      <div class="opt" onclick="pick('modelo',this,'salario','g-modelo');msgModelo('salario')"><span class="opt-ico">📅</span><span class="opt-lbl">Salario fijo</span><span class="opt-sub">Seguridad mensual, techo definido por otros.</span></div>
+      <div class="opt" onclick="pick('modelo',this,'mixto','g-modelo');msgModelo('mixto')"><span class="opt-ico">🔀</span><span class="opt-lbl">Mixto / varios</span><span class="opt-sub">Combino fuentes, pero ninguna es pasiva.</span></div>
+    </div>
+    <div class="msg-box" id="msg-modelo"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-eye">El diagnóstico más importante</div>
+    <div class="card-title">¿Cómo describirías tu situación actual con honestidad?</div>
+    <div class="card-sub">No hay respuesta incorrecta. Esta es la base del cambio.</div>
+    <div class="opt-grid" id="g-identidad" style="grid-template-columns:1fr;">
+      <div class="opt" style="flex-direction:row;align-items:flex-start;gap:12px;" onclick="pick('identidad',this,'emplead','g-identidad');msgIdentidad('emplead')"><span class="opt-ico">👔</span><div><span class="opt-lbl" id="lbl-emplead">Empleado/a</span><br><span class="opt-sub">Cambio tiempo por dinero fijo. Mi techo lo ponen otros.</span></div></div>
+      <div class="opt" style="flex-direction:row;align-items:flex-start;gap:12px;" onclick="pick('identidad',this,'autoemplead','g-identidad');msgIdentidad('autoemplead')"><span class="opt-ico">🔧</span><div><span class="opt-lbl" id="lbl-autoemplead">Autoempleado/a</span><br><span class="opt-sub">Trabajo para mí, pero si paro, para el ingreso.</span></div></div>
+      <div class="opt" style="flex-direction:row;align-items:flex-start;gap:12px;" onclick="pick('identidad',this,'transicion','g-identidad');msgIdentidad('transicion')"><span class="opt-ico">🌱</span><div><span class="opt-lbl">En transición</span><br><span class="opt-sub">Quiero construir algo que trabaje sin mí.</span></div></div>
+      <div class="opt" style="flex-direction:row;align-items:flex-start;gap:12px;" onclick="pick('identidad',this,'empresari','g-identidad');msgIdentidad('empresari')"><span class="opt-ico">🏛️</span><div><span class="opt-lbl" id="lbl-empresari">Empresario/a en construcción</span><br><span class="opt-sub">Quiero activos, no intercambiar horas.</span></div></div>
+    </div>
+    <div class="msg-box" id="msg-identidad"></div>
+  </div>
+
+  <div class="nav">
+    <button class="btn-back" onclick="go(2)">← Atrás</button>
+    <button class="btn-next" id="btn3" onclick="go(4)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ══════════ STEP 4 ══════════ -->
+<div class="step" id="s4">
+  <div class="card">
+    <div class="card-eye">Paso 4 de 5 · Lo que te detiene</div>
+    <div class="card-title">¿Qué ha impedido que monetices tu experiencia hasta ahora?</div>
+    <div class="card-sub">Selecciona todo lo que aplique. Esto determina el costo real de tu inacción.</div>
+    <div class="check-list">
+      <div class="chk" onclick="toggleChk(this,'nosaber',1500)"><div class="chk-box">✓</div><span class="chk-txt">No sé por dónde empezar — me falta claridad en el primer paso</span></div>
+      <div class="chk" onclick="toggleChk(this,'precio',2000)"><div class="chk-box">✓</div><span class="chk-txt">No sé qué precio cobrar — temo cobrar de más o de menos</span></div>
+      <div class="chk" onclick="toggleChk(this,'tech',1200)"><div class="chk-box">✓</div><span class="chk-txt">La tecnología me intimida — no sé qué herramientas usar</span></div>
+      <div class="chk" onclick="toggleChk(this,'tiempo',1800)"><div class="chk-box">✓</div><span class="chk-txt">Siento que no tengo tiempo para construir algo nuevo</span></div>
+      <div class="chk" onclick="toggleChk(this,'impostor',2500)"><div class="chk-box">✓</div><span class="chk-txt">Síndrome del impostor — creo que mi experiencia no es suficiente</span></div>
+      <div class="chk" onclick="toggleChk(this,'mercado',1000)"><div class="chk-box">✓</div><span class="chk-txt">No sé si hay mercado para lo que sé hacer</span></div>
+      <div class="chk" onclick="toggleChk(this,'solo',900)"><div class="chk-box">✓</div><span class="chk-txt">Me siento solo/a en el proceso — sin comunidad ni guía</span></div>
+    </div>
+  </div>
+  <div class="nav">
+    <button class="btn-back" onclick="go(3)">← Atrás</button>
+    <button class="btn-next" onclick="goCaptura()">Ver mi resultado →</button>
+  </div>
+</div>
+
+
+<!-- ══════════ STEP 4.5: CAPTURA ══════════ -->
+<div class="step" id="s45">
+  <div class="card">
+    <div class="capture-wrap">
+      <span class="capture-ico">🔓</span>
+      <h2 class="capture-title">
+        Tu diagnóstico está listo.<br>
+        <em>¿Dónde lo enviamos?</em>
+      </h2>
+      <p class="capture-sub">
+        Ingresa tu nombre y email para ver tu resultado personalizado
+        y recibir los primeros 2 capítulos de <strong>Riqueza Interna™</strong> gratis.
+      </p>
+
+      <!-- Preview del número principal bloqueado -->
+      <div class="result-preview-box">
+        <div>
+          <div class="rpb-label">Tu costo mensual de inacción</div>
+          <div class="rpb-num locked" id="preview-num">$X,XXX</div>
+          <div class="rpb-sub">calculado con tu perfil · desbloquea abajo</div>
+        </div>
+        <div class="lock-badge">🔒 Ver mi resultado</div>
+      </div>
+
+      <!-- Preview del eBook -->
+      <div class="capture-preview">
+        <div class="capture-preview-book">📖</div>
+        <div class="capture-preview-text">
+          <div class="capture-preview-label">Bonus gratuito incluido</div>
+          <div class="capture-preview-title">Riqueza Interna™</div>
+          <div class="capture-preview-desc">Capítulos 1 y 2 · PDF descargable al instante</div>
+        </div>
+      </div>
+
+      <!-- Formulario -->
+      <div class="capture-form">
+        <input class="capture-input" type="text" id="cap-nombre" placeholder="Tu nombre" oninput="validateCapture()">
+        <input class="capture-input" type="email" id="cap-email" placeholder="Tu mejor email" oninput="validateCapture()">
+        <button class="capture-btn" id="cap-btn" onclick="submitCapture()" disabled>
+          Ver mi diagnóstico completo →
+        </button>
+        <p class="capture-privacy">🔒 Sin spam. Tu información está protegida. Puedes cancelar cuando quieras.</p>
+      </div>
+
+      <div class="capture-skip" onclick="skipCapture()">
+        Prefiero continuar sin el bonus →
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ STEP 5: RESULTADOS ══════════ -->
+<div class="step" id="s5">
+  <div class="res-hero">
+    <div class="res-eye">Tu diagnóstico personalizado · Riqueza Academy™</div>
+    <div class="res-title" id="res-title">Cada mes que esperas,<br><em>este es tu costo real:</em></div>
+    <div id="banner-candidata"></div>
+    <div class="costo-box">
+      <div class="costo-lbl">Dinero que dejas sobre la mesa cada mes</div>
+      <div class="costo-num" id="r-mensual">$0</div>
+      <div class="costo-sub">por no monetizar tu experiencia</div>
+    </div>
+    <div class="roi-box" style="margin-top:10px;">
+      <div class="roi-lbl">ROI del Método Rica IA™ en tu caso</div>
+      <div class="roi-num" id="r-roi">0×</div>
+      <div class="roi-sub">retorno sobre la inversión en 12 meses</div>
+    </div>
+  </div>
+
+  <div class="bk-grid" id="bk-grid"></div>
+  <div class="persona-card"><div class="persona-title" id="pc-title">Tu diagnóstico</div><div class="persona-text" id="pc-text"></div></div>
+  <div class="tl-card"><div class="tl-title">El costo de esperar — año por año</div><div id="tl-rows"></div></div>
+  <div class="ins-box"><div class="ins-ico">💡</div><div class="ins-txt" id="ins-txt"></div></div>
+
+  <div class="decision-card">
+    <div class="dc-eyebrow" style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-d);margin-bottom:12px;font-weight:600;">Tu primer paso · Sin costo</div>
+    <div class="dc-title">El conocimiento que tienes<br><em>ya vale dinero.</em></div>
+    <div class="dc-sub">Únete a la Masterclass gratuita y descubre exactamente cómo convertir lo que ya sabes en tu primer producto digital — en 28 días.</div>
+
+    <div class="dc-vs">
+      <div class="dc-opt"><div class="dc-lbl r">Sin actuar</div><div class="dc-num r" id="dc-sin">$0</div><div class="dc-note">perdidos en 12 meses</div></div>
+      <div class="dc-sep">vs</div>
+      <div class="dc-opt"><div class="dc-lbl g">Con RICA™</div><div class="dc-num g" id="dc-con">$0</div><div class="dc-note">potencial año 1</div></div>
+    </div>
+
+    <div class="dc-excl" style="background:linear-gradient(135deg,#F5EDD8,#EDD8A0);border-radius:10px;padding:20px 20px;margin:20px 0;text-align:center;">
+      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-d);font-weight:600;margin-bottom:8px;">Masterclass Gratuita · Riqueza Academy™</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--char-m);margin-bottom:6px;">Monetiza tu Conocimiento con IA</div>
+      <div style="font-size:13px;color:var(--char-l);margin-bottom:4px;">📅 <strong id="mc-fecha-card">21 de octubre de 2026</strong> · 7:00 PM EST</div>
+      <div style="font-size:11px;color:var(--char-xl);margin-top:4px;">📌 Disponible solo el tercer miércoles de cada mes</div>
+    </div>
+
+    <button class="cta-btn" onclick="window.open('https://us06web.zoom.us/meeting/register/kKE7Z0CzTQ-B8keZNpWzMQ','_blank')">
+      Separar mi espacio gratis →
+    </button>
+    <div class="cta-note" id="cta-fecha-mc">✦ Acceso gratuito · Cupos limitados · <span id="mc-fecha-nota">21 de octubre · 7PM EST</span></div>
+  </div>
+
+  <!-- SECCIÓN TRIBU RICA — screenshot + ManyChat -->
+  <div style="background:linear-gradient(135deg,#8B4A52 0%,#A05560 50%,#C4838A 100%);border-radius:18px;padding:32px 28px;margin-bottom:16px;text-align:center;">
+    <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.55);font-weight:500;margin-bottom:10px;">Siguiente paso · Gratuito</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:#fff;line-height:1.15;margin-bottom:10px;">Comparte tu resultado<br><em style="color:var(--gold-l);font-style:italic;">y únete a La Tribu Rica™</em></div>
+    <p style="font-size:13px;color:rgba(255,255,255,0.75);line-height:1.7;max-width:400px;margin:0 auto 22px;">
+      Toma un screenshot de tu diagnóstico y envíanoslo por chat. Te damos acceso gratuito a <strong style="color:#fff">La Tribu Rica™</strong> y a los primeros 2 capítulos de <strong style="color:#fff">Riqueza Interna™</strong>.
+    </p>
+
+    <!-- Pasos visuales -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:24px;max-width:420px;margin-left:auto;margin-right:auto;">
+      <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:14px 10px;">
+        <div style="font-size:22px;margin-bottom:6px;">📸</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.8);font-weight:500;line-height:1.4;">Toma un screenshot de esta página</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:14px 10px;">
+        <div style="font-size:22px;margin-bottom:6px;">💬</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.8);font-weight:500;line-height:1.4;">Envíalo por chat a Leslie</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:14px 10px;">
+        <div style="font-size:22px;margin-bottom:6px;">🌿</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.8);font-weight:500;line-height:1.4;">Recibe acceso gratis a la Tribu</div>
+      </div>
+    </div>
+
+    <a href="https://m.me/RiquezaAcademy?ref=CALCULADORA" target="_blank"
+       style="display:inline-block;background:var(--gold);color:#2A1A1E;padding:16px 36px;border-radius:12px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;margin-bottom:10px;transition:all .2s;">
+      Enviar mi resultado por chat →
+    </a>
+    <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.5px;">Recibirás respuesta en minutos · 100% gratuito</div>
+  </div>
+
+  <div class="share-row">
+    <button class="share-btn" onclick="reset()">↺ Recalcular</button>
+    <button class="share-btn" onclick="copiar()">⎘ Copiar resultado</button>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+<footer>Riqueza Academy™ · Método RICA™ · #MiCaminoRICA</footer>
+
+<script>
+// ══════════════════════════════
+// ESTADO
+// ══════════════════════════════
+const D = {
+  genero:'f', anos:15, area:'negocios',
+  tarifa:25, hotro:40, horas:5,
+  valor:100, modelo:'hora', identidad:'emplead',
+  bloqueos:{}, bloqueo_costo:0
+};
+
+// TEXTOS POR GÉNERO
+const G = {
+  f:{ avatar:'María Elena', emp:'Empleada', auto:'Autoempleada', emp_c:'La empleada', auto_c:'La autoempleada', emp_u:'empresaria', solo:'sola',
+      id_emp:'Llevas años construyendo el activo de alguien más. Es hora de construir el tuyo.',
+      id_auto:'Eres el producto, la vendedora y la proveedora. Si paras, para el ingreso. Eso no es un negocio — es un empleo disfrazado.',
+      id_trans:'Estás en el momento más poderoso: la transición consciente. El Método Rica IA™ es exactamente el puente.',
+      id_emp2:'Tienes la mentalidad correcta. El siguiente paso es el sistema para ejecutarla con tu expertise.' },
+  m:{ avatar:'Carlos', emp:'Empleado', auto:'Autoempleado', emp_c:'El empleado', auto_c:'El autoempleado', emp_u:'empresario', solo:'solo',
+      id_emp:'Llevas años construyendo el activo de alguien más. Es hora de construir el tuyo.',
+      id_auto:'Eres el producto, el vendedor y el proveedor. Si paras, para el ingreso. Eso no es un negocio — es un empleo disfrazado.',
+      id_trans:'Estás en el momento más poderoso: la transición consciente. El Método Rica IA™ es exactamente el puente.',
+      id_emp2:'Tienes la mentalidad correcta. El siguiente paso es el sistema para ejecutarla con tu expertise.' },
+  n:{ avatar:'Profesional', emp:'Empleado/a', auto:'Autoempleado/a', emp_c:'Quienes trabajan en empleo', auto_c:'El autoempleo', emp_u:'empresario/a', solo:'solo/a',
+      id_emp:'Llevas años construyendo el activo de alguien más. Es hora de construir el tuyo.',
+      id_auto:'El tiempo vendido no es tuyo. Si paras, para el ingreso. Eso no es un negocio — es un empleo disfrazado.',
+      id_trans:'Estás en el momento más poderoso: la transición consciente. El Método Rica IA™ es exactamente el puente.',
+      id_emp2:'La mentalidad correcta más el sistema correcto. Eso es el Método Rica IA™.' }
+};
+
+const AREA_MULT = { salud:1.3, negocios:1.5, educacion:1.2, creatividad:1.1, tech:1.4, otro:1.1 };
+const AREA_NOM  = { salud:'Salud & Bienestar', negocios:'Negocios & Finanzas', educacion:'Educación & Desarrollo', creatividad:'Creatividad & Diseño', tech:'Tecnología & IA', otro:'Tu área de expertise' };
+
+const f = n => Math.round(n).toLocaleString('es-US');
+
+// ══════════════════════════════
+// PASOS
+// ══════════════════════════════
+const PASOS = [{n:1,l:'Perfil'},{n:2,l:'Situación'},{n:3,l:'Mentalidad'},{n:4,l:'Bloqueos'},{n:5,l:'Resultado'}];
+
+function go(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const stepId = (n === 4.5) ? 's45' : 's'+n;
+  document.getElementById(stepId).classList.add('active');
+  updateProg(n);
+  if(n===5) buildResults();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function updateProg(n) {
+  const stepN = (n === 4.5) ? 4 : n;
+  const pct = ((stepN-1)/(PASOS.length-1))*100;
+  n = stepN;
+  document.getElementById('progFill').style.width = pct+'%';
+  document.getElementById('progSteps').innerHTML = PASOS.map(p=>`
+    <div class="step-dot ${p.n<n?'done':p.n===n?'active':''}">
+      <div class="step-circle">${p.n<n?'✓':p.n}</div>
+      <div class="step-name">${p.l}</div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════
+// SELECCIÓN DE OPCIONES — función única, limpia
+// ══════════════════════════════
+function pick(key, el, val, gridId) {
+  // Deseleccionar solo dentro del grid correcto
+  document.getElementById(gridId).querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  D[key] = val;
+
+  // Efectos secundarios
+  if(key==='genero') applyGender(val);
+
+  validate();
+}
+
+// ══════════════════════════════
+// VALIDACIÓN — simple y directa
+// ══════════════════════════════
+function validate() {
+  // Botones siempre activos — valores por defecto garantizan continuidad
+  const b1 = document.getElementById('btn1');
+  const b2 = document.getElementById('btn2');
+  const b3 = document.getElementById('btn3');
+  if(b1) b1.disabled = false;
+  if(b2) b2.disabled = false;
+  if(b3) b3.disabled = false;
+}
+
+// ══════════════════════════════
+// GÉNERO
+// ══════════════════════════════
+function applyGender(g) {
+  const t = G[g];
+  const lblEmp  = document.getElementById('lbl-emplead');
+  const lblAuto = document.getElementById('lbl-autoemplead');
+  const lblEmp2 = document.getElementById('lbl-empresari');
+  if(lblEmp)  lblEmp.textContent  = t.emp;
+  if(lblAuto) lblAuto.textContent = t.auto;
+  if(lblEmp2) lblEmp2.textContent = t.emp_u.charAt(0).toUpperCase()+t.emp_u.slice(1)+' en construcción';
+}
+
+// ══════════════════════════════
+// SLIDERS
+// ══════════════════════════════
+function slAnos(el) {
+  const v = parseInt(el.value);
+  const pct = ((v-5)/(30-5))*100;
+  el.style.setProperty('--pct', pct+'%');
+  document.getElementById('sv-anos').innerHTML = `${v} <span>años</span>`;
+  D.anos = v;
+}
+
+function calcSal() {
+  const t = parseInt(document.getElementById('sl-tarifa').value);
+  const h = parseInt(document.getElementById('sl-hotro').value);
+  // pct sliders
+  document.getElementById('sl-tarifa').style.setProperty('--pct',((t-5)/(150-5)*100)+'%');
+  document.getElementById('sl-hotro').style.setProperty('--pct',((h-5)/(50-5)*100)+'%');
+  // labels
+  document.getElementById('sv-tarifa').innerHTML = `$${t} <span>/ hora</span>`;
+  document.getElementById('sv-hotro').innerHTML  = `${h} <span>h / semana</span>`;
+  // cálculo
+  const sal = Math.round(t * h * 4.3);
+  document.getElementById('sal-t').textContent     = `$${t}/h`;
+  document.getElementById('sal-h').textContent     = h;
+  document.getElementById('sal-total').textContent = '$'+f(sal);
+  D.tarifa = t;
+  D.hotro  = h;
+  D.ingreso = sal;
+  calcBrecha();
+}
+
+function calcBrecha() {
+  const pagado = D.tarifa || 25;
+  const vale   = parseInt(document.getElementById('sl-valor').value);
+  const horas  = D.hotro || 40;
+  const pct    = ((vale-20)/(500-20))*100;
+  document.getElementById('sl-valor').style.setProperty('--pct', pct+'%');
+  document.getElementById('sv-valor').innerHTML = `$${vale} <span>/ hora</span>`;
+  D.valor = vale;
+
+  const diff  = Math.max(0, vale - pagado);
+  const anual = diff * horas * 52;
+
+  document.getElementById('b-pagado').textContent = '$'+pagado;
+  document.getElementById('b-vale').textContent   = '$'+vale;
+  document.getElementById('b-diff').textContent   = '$'+diff;
+  document.getElementById('b-anual').textContent  = '$'+f(anual);
+  document.getElementById('b-formula').textContent= `$${diff} × ${horas}h × 52 sem`;
+
+  const msg = document.getElementById('msg-brecha');
+  if(diff > 0) {
+    const pctGap = Math.round((diff/vale)*100);
+    show(msg,'info',`<strong>${pctGap}% de tu valor por hora no llega a ti.</strong> Hay alguien capturando esa diferencia cada semana. El Método Rica IA™ te enseña a ser tú quien la capture — a través de un activo digital que trabaja sin que estés presente.`);
+  } else {
+    show(msg,'ok','<strong>Estás cobrando a precio justo.</strong> El siguiente salto es convertir ese conocimiento en un activo que genere ingreso mientras vives tu vida.');
+  }
+}
+
+// ══════════════════════════════
+// ALERTAS Y MENSAJES
+// ══════════════════════════════
+function alertHoras(v) {
+  const el = document.getElementById('alert-horas');
+  if(v<=2)   show(el,'warn','<strong>⚠️ Importante:</strong> El Método Rica IA™ requiere mínimo 4–6 horas semanales para ver resultados reales. Te recomendamos evaluar si este es el momento adecuado, o cómo liberar ese tiempo antes de comenzar.');
+  else if(v===5) show(el,'ok','<strong>✅ Perfecto.</strong> 4–6 horas semanales es exactamente lo que necesitas para avanzar a ritmo sostenido.');
+  else show(el,'info',`<strong>🚀 Excelente.</strong> Con ${v===10?'7–12':'12+'} horas semanales puedes implementar el método de forma acelerada.`);
+}
+
+function msgModelo(v) {
+  const msgs = {
+    hora:     'info|<strong>⏱️ El modelo por hora tiene un techo biológico.</strong> El conocimiento empaquetado puede venderse 1,000 veces sin que estés presente.',
+    proyecto: 'info|<strong>📋 Mejor que por hora — pero aún depende de ti.</strong> El salto es convertir ese conocimiento en un producto que no necesite tu presencia.',
+    salario:  'info|<strong>📅 El salario da predecibilidad, pero no autonomía.</strong> El ingreso digital es el que no pide permiso para crecer.',
+    mixto:    'info|<strong>🔀 Múltiples fuentes, pero ninguna pasiva.</strong> Un producto digital bien posicionado puede superar todos juntos.'
+  };
+  const [tipo, txt] = msgs[v].split('|');
+  show(document.getElementById('msg-modelo'), tipo, txt);
+}
+
+function msgIdentidad(v) {
+  const g = G[D.genero||'f'];
+  const msgs = { emplead:g.id_emp, autoemplead:g.id_auto, transicion:g.id_trans, empresari:g.id_emp2 };
+  show(document.getElementById('msg-identidad'),'info',`<strong>${msgs[v]}</strong>`);
+}
+
+function show(el, tipo, html) {
+  el.className = 'msg-box '+tipo;
+  el.style.display = 'block';
+  el.innerHTML = html;
+}
+
+// ══════════════════════════════
+// CHECKS BLOQUEOS
+// ══════════════════════════════
+function toggleChk(el, key, cost) {
+  el.classList.toggle('sel');
+  if(el.classList.contains('sel')) D.bloqueos[key] = cost;
+  else delete D.bloqueos[key];
+  D.bloqueo_costo = Object.values(D.bloqueos).reduce((a,b)=>a+b,0);
+}
+
+// ══════════════════════════════
+// RESULTADOS
+// ══════════════════════════════
+function buildResults() {
+  const g        = G[D.genero||'f'];
+  const anos     = D.anos;
+  const area     = D.area || 'negocios';
+  const mult     = AREA_MULT[area];
+  const expFact  = 1 + (anos/30)*0.8;
+  const tarifa   = D.tarifa || 25;
+  const hotro    = D.hotro  || 40;
+  const horas    = D.horas  || 5;
+  const valor    = D.valor  || 100;
+  const candidat = horas >= 4;
+  const PRECIO   = 297;
+
+  // Potencial mensual no monetizado
+  const potencial  = Math.round(tarifa * mult * expFact * horas * 4.3);
+  const costoMes   = potencial;
+  const costoAnio  = costoMes * 12;
+  const factHoras  = horas<=2?.15:horas<=5?.30:horas<=10?.45:.60;
+  const ganancia1  = Math.round(costoAnio * factHoras);
+  const roi        = Math.round(ganancia1 / PRECIO);
+  const brechaAnio = Math.max(0, valor - tarifa) * hotro * 52;
+
+  // Título personalizado
+  document.getElementById('res-title').innerHTML =
+    `${g.avatar}, cada mes que esperas,<br><em>este es tu costo real:</em>`;
+
+  // Banner candidata
+  const banner = document.getElementById('banner-candidata');
+  if(!candidat) {
+    banner.style.cssText='background:rgba(154,58,58,.2);border:1px solid rgba(200,100,100,.3);border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:12px;color:#F0C0C0;line-height:1.5;';
+    banner.innerHTML='<strong style="color:#F08080;">⚠️</strong> Indicaste menos de 4 horas disponibles. El Método Rica IA™ requiere mínimo 4–6h semanales. Te mostramos tu potencial real — pero te recomendamos conversarlo en nuestra próxima Masterclass — tercer miércoles del mes.';
+  } else { banner.style.display='none'; }
+
+  // Números principales
+  document.getElementById('r-mensual').textContent = '$'+f(costoMes);
+  document.getElementById('r-roi').textContent     = candidat ? roi+'×' : '—';
+  document.getElementById('dc-sin').textContent    = '$'+f(costoAnio);
+  document.getElementById('dc-con').textContent    = candidat ? '$'+f(ganancia1) : 'Evaluar';
+
+  // Breakdown
+  const pctVendido = Math.round((hotro/(hotro+horas))*100);
+  document.getElementById('bk-grid').innerHTML = `
+    <div class="bk red"><div class="bk-ico">⏳</div><div class="bk-lbl">Costo por semana</div><div class="bk-val">$${f(costoMes/4.3)}</div><div class="bk-note">Cada semana sin actuar es dinero que no vuelve.</div></div>
+    <div class="bk gold"><div class="bk-ico">💼</div><div class="bk-lbl">Lo que te pagan vs. vale</div><div class="bk-val" style="font-size:16px;line-height:1.5;">$${tarifa}/h → $${valor}/h</div><div class="bk-note">Brecha: <strong>$${Math.max(0,valor-tarifa)}/hora</strong> · $${f(brechaAnio)}/año sin capturar.</div></div>
+    <div class="bk red"><div class="bk-ico">🔗</div><div class="bk-lbl">Tiempo vendido</div><div class="bk-val">${pctVendido}%</div><div class="bk-note">${hotro}h/semana trabajan para el sueño de alguien más.</div></div>
+    <div class="bk green"><div class="bk-ico">📈</div><div class="bk-lbl">Potencial año 1</div><div class="bk-val">${candidat?'$'+f(ganancia1):'Evaluar'}</div><div class="bk-note">${candidat?'Estimado conservador con el Método RICA™.':'Alcanzable al liberar 4h+ semanales.'}</div></div>
+    <div class="bk rose"><div class="bk-ico">🪞</div><div class="bk-lbl">Tu perfil actual</div><div class="bk-val">${D.identidad==='emplead'?g.emp:D.identidad==='autoemplead'?g.auto:D.identidad==='transicion'?'En transición':(g.emp_u.charAt(0).toUpperCase()+g.emp_u.slice(1)+' en constr.')}</div><div class="bk-note">El Método RICA™ te lleva a ${g.emp_u} de conocimiento.</div></div>
+    <div class="bk"><div class="bk-ico">⚡</div><div class="bk-lbl">Break-even del curso</div><div class="bk-val">${Math.ceil(PRECIO/costoMes*30)} días</div><div class="bk-note">Días de inacción que cuestan lo mismo que el Método Rica IA™ completo.</div></div>`;
+
+  // Persona card
+  const areaNom = AREA_NOM[area];
+  const idMsg = {emplead:g.id_emp,autoemplead:g.id_auto,transicion:g.id_trans,empresari:g.id_emp2}[D.identidad]||'';
+  const horasMsg = candidat
+    ? `Con <strong>${horas<=5?'4–6':horas<=10?'7–12':'12+'} horas propias a la semana</strong>, tienes suficiente margen para avanzar sin sacrificar tu trabajo actual.`
+    : `Con menos de 4 horas disponibles, el avance será lento. El primer paso es liberar ese margen.`;
+  document.getElementById('pc-title').textContent = `Tu diagnóstico completo · ${areaNom}`;
+  document.getElementById('pc-text').innerHTML = `
+    Con <strong>${anos} años de experiencia</strong> en ${areaNom} y dedicando <strong>${hotro} horas semanales a trabajo para otros</strong>, tienes exactamente el perfil que el Método Rica IA™ está diseñado para transformar.
+    <br><br>${horasMsg}
+    <br><br><strong>${idMsg}</strong>
+    <br><br>El resultado: <strong>$${f(costoMes)} al mes</strong> que tu experiencia genera para el sistema — sin que tú captures ese valor directamente. Eso no es un juicio. Es matemática. Y la matemática se puede cambiar.`;
+
+  // Timeline
+  const rows = [
+    {p:'Hoy',           c:0,          g2:0},
+    {p:'3 meses',       c:costoMes*3, g2:0},
+    {p:'6 meses',       c:costoMes*6, g2:ganancia1*.3},
+    {p:'12 meses',      c:costoAnio,  g2:ganancia1},
+    {p:'24 meses',      c:costoAnio*2,g2:ganancia1*2.8},
+  ];
+  document.getElementById('tl-rows').innerHTML = rows.map(r=>`
+    <div class="tl-row">
+      <div class="tl-period">${r.p}</div>
+      <div class="tl-values">
+        <div><div class="tl-lbl">Sin actuar</div><div class="tl-cost">${r.c>0?'-$'+f(r.c):'—'}</div></div>
+        <div><div class="tl-lbl">Con RICA™</div><div class="tl-gain">${r.g2>0?'+$'+f(r.g2):'—'}</div></div>
+      </div>
+    </div>`).join('');
+
+  // Insight
+  document.getElementById('ins-txt').innerHTML = `
+    <strong>El Método Rica IA™ no cuesta $297. Te cuesta ${Math.round(PRECIO/costoMes*30)} días de inacción.</strong>
+    Ese es el tiempo exacto que necesitas para recuperar la inversión con un solo producto digital y 10 ventas.
+    <br><br>Pero hay algo más importante que el dinero: cada año sin un sistema propio es un año en que tu experiencia acumulada — décadas de aprendizaje, errores y transformación — trabaja para el sistema de alguien más, no para tu legado.
+    <br><br>Las líderes que deciden actuar no esperan el momento perfecto. <strong>Crean el momento.</strong>`;
+}
+
+// ══════════════════════════════
+// RESET & UTILS
+// ══════════════════════════════
+function reset() {
+  Object.assign(D,{genero:null,anos:15,area:null,tarifa:25,hotro:40,horas:null,valor:100,modelo:null,identidad:null,bloqueos:{},bloqueo_costo:0});
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  document.querySelectorAll('.chk').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.msg-box,.alert').forEach(m=>m.style.display='none');
+  go(1);
+  validate();
+}
+
+function copiar() {
+  const txt = `Mi diagnóstico de Riqueza Academy™:\n🔴 Costo mensual: ${document.getElementById('r-mensual').textContent}\n📈 ROI potencial: ${document.getElementById('r-roi').textContent}\n\n#MiCaminoRICA`;
+  navigator.clipboard.writeText(txt).then(()=>alert('¡Copiado!'));
+}
+
+
+// ══════════════════════════════
+// CAPTURA — Step 4.5
+// ══════════════════════════════
+function goCaptura() {
+  // Pre-calculate and show blurred number as teaser
+  const g        = G[D.genero||'f'];
+  const anos     = D.anos;
+  const area     = D.area || 'negocios';
+  const mult     = AREA_MULT[area];
+  const expFact  = 1 + (anos/30)*0.8;
+  const tarifa   = D.tarifa || 25;
+  const horas    = D.horas  || 5;
+  const potencial = Math.round(tarifa * mult * expFact * horas * 4.3);
+  
+  const preview = document.getElementById('preview-num');
+  if(preview) {
+    preview.textContent = '$' + f(potencial);
+    // keep blurred until submit
+  }
+  
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('s45').classList.add('active');
+  updateProg(4.5);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function validateCapture() {
+  const nombre = document.getElementById('cap-nombre').value.trim();
+  const email  = document.getElementById('cap-email').value.trim();
+  const btn    = document.getElementById('cap-btn');
+  const emailOk = /^[^@]+@[^@]+\.[^@]+$/.test(email);
+  btn.disabled = !(nombre.length >= 2 && emailOk);
+}
+
+function submitCapture() {
+  const nombre = document.getElementById('cap-nombre').value.trim();
+  const email  = document.getElementById('cap-email').value.trim();
+  
+  // Store in state
+  D.nombre = nombre;
+  D.email  = email;
+  
+  // Animate button
+  const btn = document.getElementById('cap-btn');
+  btn.textContent = '✓ ¡Listo! Cargando tu diagnóstico...';
+  btn.disabled = true;
+  
+  // Send to Systeme.io (replace URL with real endpoint)
+  const SYSTEME_FORM_URL = 'https://lesliedominguezriquezaacademy.systeme.io/calculadora-optin';
+  if(SYSTEME_FORM_URL !== 'https://lesliedominguezriquezaacademy.systeme.io/calculadora-optin') {
+    fetch(SYSTEME_FORM_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: nombre, email: email, source: 'calculadora-inaccion' })
+    }).catch(()=>{}); // silent fail — don't block UX
+  }
+  
+  // Unblur preview number
+  const preview = document.getElementById('preview-num');
+  if(preview) preview.classList.remove('locked');
+  
+  setTimeout(() => go(5), 800);
+}
+
+function skipCapture() {
+  go(5);
+}
+
+// ══════════════════════════════
+// FECHA EVERGREEN — Tercer miércoles del mes
+// ══════════════════════════════
+function getTercerMiercoles() {
+  var hoy = new Date(); hoy.setHours(0,0,0,0);
+  for (var delta = 0; delta <= 2; delta++) {
+    var fecha = new Date(hoy.getFullYear(), hoy.getMonth() + delta, 1);
+    var mes = fecha.getMonth();
+    var anio = fecha.getFullYear();
+    var miercoles = 0;
+    for (var d = 1; d <= 31; d++) {
+      var f = new Date(anio, mes, d);
+      if (f.getMonth() !== mes) break;
+      if (f.getDay() === 3) {
+        miercoles++;
+        if (miercoles === 3) {
+          if (f > hoy) {
+            var meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+            return d + ' de ' + meses[mes] + ', ' + anio;
+          }
+          break;
+        }
+      }
+    }
+  }
+  return '21 de octubre, 2026';
+}
+
+// Actualizar fecha en CTA
+(function() {
+  var el = document.getElementById('cta-fecha-mc');
+  var card = document.getElementById('mc-fecha-card');
+  var nota = document.getElementById('mc-fecha-nota');
+  var fecha = getTercerMiercoles();
+  if(el) el.innerHTML = '✦ Acceso gratuito · Cupos limitados · <span id="mc-fecha-nota">' + fecha + ' · 7PM EST</span>';
+  if(card) card.textContent = fecha;
+  if(nota) nota.textContent = fecha + ' · 7PM EST';
+})();
+
+// Override updateProg to handle step 4.5
+const _origUpdateProg = updateProg;
+
+// ══════════════════════════════
+// INIT
+// ══════════════════════════════
+updateProg(1);
+// Inicializar sliders con valores visuales correctos
+document.getElementById('sl-anos').style.setProperty('--pct','40%');
+document.getElementById('sl-tarifa').style.setProperty('--pct', ((25-5)/(150-5)*100)+'%');
+document.getElementById('sl-hotro').style.setProperty('--pct',  ((40-5)/(50-5)*100)+'%');
+document.getElementById('sl-valor').style.setProperty('--pct',  ((100-20)/(500-20)*100)+'%');
+validate();
+</script>
+<script>
+// ══════════════════════════════
+// LLUVIA DE DINERO — canvas animation
+// ══════════════════════════════
+(function() {
+  const canvas = document.getElementById('money-canvas');
+  const ctx    = canvas.getContext('2d');
+  const hero   = canvas.parentElement;
+
+  // Símbolos y billetes
+  const SYMBOLS = ['$','€','£','¥','$','$','$','💵','💰','$','✦','◈'];
+  const BILLS   = ['$100','$50','$20','$'];
+
+  let W, H, particles;
+
+  function resize() {
+    W = canvas.width  = hero.offsetWidth;
+    H = canvas.height = hero.offsetHeight;
+  }
+
+  function Particle() {
+    this.reset = function(initial) {
+      this.x     = Math.random() * W;
+      this.y     = initial ? Math.random() * H : -40;
+      this.size  = Math.random() * 18 + 12;       // 12–30px — más grandes
+      this.speed = Math.random() * 1.0 + 0.5;     // un poco más rápido
+      this.drift = (Math.random() - 0.5) * 0.5;
+      this.rot   = Math.random() * Math.PI * 2;
+      this.rotV  = (Math.random() - 0.5) * 0.04;
+      this.alpha = Math.random() * 0.55 + 0.30;   // 0.30–0.85 — más visible
+      this.sym   = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+      this.isBill = Math.random() < 0.20;          // 20% billetes
+      this.billW = Math.random() * 30 + 22;
+      this.billH = this.billW * 0.45;
+      // Colores más oscuros para contrastar sobre dorado claro
+      const palette = [
+        'rgba(42,28,8,',       // marrón oscuro — principal
+        'rgba(42,28,8,',
+        'rgba(255,255,255,',   // blanco
+        'rgba(255,255,255,',
+        'rgba(196,131,138,',   // rosa
+        'rgba(90,55,10,',      // marrón medio
+        'rgba(120,80,20,',     // dorado oscuro
+      ];
+      this.color = palette[Math.floor(Math.random() * palette.length)];
+    };
+    this.reset(true);
+  }
+
+  function initParticles() {
+    const count = Math.floor(W / 14); // más densidad
+    particles = Array.from({length: count}, () => new Particle());
+  }
+
+  function drawBill(p) {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.globalAlpha = p.alpha * 0.8;
+
+    // Rectángulo del billete
+    const r = 3;
+    const w = p.billW, h = p.billH;
+    ctx.beginPath();
+    ctx.moveTo(-w/2+r, -h/2);
+    ctx.arcTo(w/2, -h/2, w/2, h/2, r);
+    ctx.arcTo(w/2, h/2, -w/2, h/2, r);
+    ctx.arcTo(-w/2, h/2, -w/2, -h/2, r);
+    ctx.arcTo(-w/2, -h/2, w/2, -h/2, r);
+    ctx.closePath();
+
+    // Relleno semitransparente
+    ctx.fillStyle = 'rgba(42,28,8,0.12)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(42,28,8,0.4)';
+    ctx.lineWidth = 0.7;
+    ctx.stroke();
+
+    // Línea decorativa interior
+    ctx.beginPath();
+    ctx.rect(-w/2+3, -h/2+2, w-6, h-4);
+    ctx.strokeStyle = 'rgba(42,28,8,0.2)';
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+
+    // Símbolo $ en el centro
+    ctx.fillStyle = 'rgba(42,28,8,0.55)';
+    ctx.font = `bold ${h*0.6}px Jost, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('$', 0, 0);
+
+    ctx.restore();
+  }
+
+  function drawSymbol(p) {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.globalAlpha = p.alpha;
+    ctx.fillStyle = p.color + p.alpha + ')';
+    ctx.font = `${p.size}px Cormorant Garamond, serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(p.sym, 0, 0);
+    ctx.restore();
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+
+    particles.forEach(p => {
+      // Dibujar
+      if(p.isBill) drawBill(p); else drawSymbol(p);
+
+      // Mover
+      p.y   += p.speed;
+      p.x   += p.drift;
+      p.rot += p.rotV;
+
+      // Reset cuando sale del canvas
+      if(p.y > H + 30) p.reset(false);
+      if(p.x < -30)    p.x = W + 20;
+      if(p.x > W + 30) p.x = -20;
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  // Init
+  resize();
+  initParticles();
+  animate();
+
+  // Resize responsivo
+  window.addEventListener('resize', () => {
+    resize();
+    initParticles();
+  });
+})();
+</script>
+</body>
+</html>
