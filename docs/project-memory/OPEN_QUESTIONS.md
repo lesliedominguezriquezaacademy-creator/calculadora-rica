@@ -39,7 +39,7 @@ Depende de D-008. No se creará sin confirmación explícita de Leslie (acción 
 
 Describe Riqueza App, no la calculadora. Bajo D-008 pertenece al repo nuevo. Se mantiene aquí temporalmente (solo en la rama de trabajo) hasta crear ese repo.
 
-## Q9 — ¿Se aprueba el concepto "Calculadora de Valor" (v1.1)? · ABIERTA · PREGUNTADA 2026-09-29
+## Q9 — ¿Se aprueba el concepto "Calculadora de Valor" (v1.1)? · RESPUESTA: B (sí, con cambios) · FALTAN LOS CAMBIOS
 
 Propuesta: `docs/proposals/CALCULATOR_REDESIGN_v1.md`. Bloquea la implementación del rediseño.
 

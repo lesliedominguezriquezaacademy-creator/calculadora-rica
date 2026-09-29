@@ -27,4 +27,6 @@
 
 **Nombre:** "Calculadora de Valor" (D-012); nombre corto "Calculadora RICA" (D-013).
 
-**Siguiente:** Leslie responde Q9 (aprobar v1.1).
+**Q9:** Leslie respondió B (aprobado con cambios). Todavía no ha dicho qué cambios.
+
+**Siguiente:** Leslie indica los cambios.
