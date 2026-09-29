@@ -21,7 +21,7 @@ No hay configuración de hosting en el repo (¿systeme.io embebido, GitHub Pages
 
 ## Q4 — ¿La lógica financiera de la calculadora está aprobada? · ABIERTA · PREGUNTADA 2026-09-29
 
-Multiplicadores por área (`AREA_MULT`), factor de experiencia, factor de conversión por horas (15–60 %), precio `$297` y proyección a 24 meses (×2.8) están codificados sin fuente documentada. Ver KI-02.
+Multiplicadores por área (`AREA_MULT`), factor de experiencia, factor de conversión por horas (15–60 %), precio `$297` y proyección a 24 meses (×2.8) están codificados sin fuente documentada. Ver KI-03.
 
 ## Q5 — ¿El precio del Método Rica IA™ es $297? · ABIERTA
 
