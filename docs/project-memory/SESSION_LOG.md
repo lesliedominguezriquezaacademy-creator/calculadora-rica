@@ -29,4 +29,6 @@
 
 **Q9:** Leslie respondió B (aprobado con cambios). Todavía no ha dicho qué cambios.
 
-**Siguiente:** Leslie indica los cambios.
+**Cambios de Leslie:** nombre Calculadora RICA; horas por semana elegidas por la persona con leyenda de recomendado; se mantienen el formato y los botones; 3 minutos (D-013 a D-016). Propuesta actualizada a v1.2.
+
+**Siguiente:** Leslie aprueba la v1.2 (Q14) para empezar a implementar en la rama.

@@ -16,10 +16,13 @@ Solo se registran decisiones **explícitas** de Leslie o documentadas. Las propu
 | D-006 | 2026-09-29 | No implementar hasta alinear el plan con Leslie. | Leslie | CLAUDE.md §8 |
 | D-008 | 2026-09-29 | **Opción A:** `calculadora-rica` queda como lead magnet independiente. Riqueza App se construirá en un **repositorio nuevo** (aún no creado). | Leslie | Respuesta a Q1, sesión 2026-09-29 |
 | D-009 | 2026-09-29 | **Dirección de la calculadora:** no se centra en prometer ingresos ni en una sola idea de negocio. Debe mostrar el valor del conocimiento, la experiencia y los activos; varias posibilidades de proyecto; **10 horas de trabajo estratégico como eje**; y números derivados de los datos de la persona, con supuestos explícitos, separando cálculo de escenario, sin lenguaje de promesa. Respeta KNOWLEDGE + EXPERIENCE + ASSETS → VALUE → OFFER → BUSINESS → EXPANSION → IMPACT → LEGACY. Leslie no eligió A/B/C de Q4. | Leslie | Instrucción de sesión 2026-09-29 |
-| D-010 | 2026-09-29 | Se elimina el ancla fija de "10 horas". El ancla es **"tu primer piloto"** y la persona elige cuántas horas invierte (H); las fórmulas usan H. | Leslie | Respuesta a Q13 (opción A) |
-| D-011 | 2026-09-29 | La calculadora **sugiere un tiempo recomendado** (rango de horas por tipo de proyecto) antes de que la persona elija H. Los rangos concretos siguen pendientes de revisión (Q12). | Leslie | Instrucción de sesión 2026-09-29 |
+| D-010 | 2026-09-29 | *(Reemplazada por D-014)* Se elimina el ancla fija de "10 horas". El ancla es **"tu primer piloto"** y la persona elige cuántas horas invierte (H); las fórmulas usan H. | Leslie | Respuesta a Q13 (opción A) |
+| D-011 | 2026-09-29 | *(Reemplazada por D-014)* La calculadora **sugiere un tiempo recomendado** (rango de horas por tipo de proyecto) antes de que la persona elija H. Los rangos concretos siguen pendientes de revisión (Q12). | Leslie | Instrucción de sesión 2026-09-29 |
 | D-012 | 2026-09-29 | El nombre del producto es **"Calculadora de Valor"** (coincide con el README original: "Calculadora de Valor · Riqueza Academy™"). Se descarta "Mapa de Valor". | Leslie | Instrucción de sesión 2026-09-29 |
 | D-013 | 2026-09-29 | Nombre corto: **"Calculadora RICA"** (coincide con el nombre del repo `calculadora-rica`). | Leslie | Instrucción de sesión 2026-09-29 |
+| D-014 | 2026-09-29 | La persona elige **cuántas horas por semana** puede invertir (botones actuales 1–3 / 4–6 / 7–12 / 12+), con la leyenda **"Recomendado: 4–6 horas por semana"** (tomada de la regla existente del Método Rica IA™). **Reemplaza D-010 y D-011.** | Leslie | Instrucción de sesión 2026-09-29 |
+| D-015 | 2026-09-29 | Se mantienen el formato visual y los botones de la calculadora actual. | Leslie | Instrucción de sesión 2026-09-29 |
+| D-016 | 2026-09-29 | La experiencia debe durar unos **3 minutos**. | Leslie | Instrucción de sesión 2026-09-29 |
 
 ## Decisiones de la sesión de inicialización (agente, de bajo impacto y reversibles)
 

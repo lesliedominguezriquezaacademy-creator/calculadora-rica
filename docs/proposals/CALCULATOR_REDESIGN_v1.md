@@ -1,15 +1,68 @@
-# CALCULATOR REDESIGN — v1.1 (PROPUESTA, NO APROBADA)
+# CALCULATOR REDESIGN — v1.2 (PROPUESTA, CONCEPTO APROBADO CON CAMBIOS)
 
-Estado: **Borrador para aprobación de Leslie.** No implementado.
+Estado: concepto aprobado con cambios por Leslie (Q9 = B). La **sección 0 (v1.2)** manda sobre cualquier parte de las secciones 3–11 que la contradiga. No implementado.
 Fecha: 2026-09-29
 Base analizada: `calculadora-app.html` @ `b850794`
-Origen: instrucción de Leslie del 2026-09-29 (ver `docs/project-memory/DECISIONS.md` D-009).
 
-Nombre: **Calculadora de Valor** · nombre corto: **Calculadora RICA** (D-012, D-013). Eje de la experiencia: "tu primer piloto".
+Nombre: **Calculadora RICA** (nombre completo: Calculadora de Valor · Riqueza Academy™). Ver D-012 y D-013.
 
-Uso propuesto del nombre corto: `<title>` de la página ("Calculadora RICA · Riqueza Academy™"), el texto que se copia al compartir y el footer. El nombre completo va en la parte superior del hero.
+---
 
-> **v1.1 (2026-09-29):** según D-010, se quitan las "10 horas" fijas. La persona elige cuántas horas invertiría (**H**) en su primera versión piloto, y todas las fórmulas usan H. Según D-011, la calculadora **sugiere un rango de horas por tipo de proyecto** (sección 7).
+## 0. v1.2 — Versión breve (manda sobre lo demás)
+
+### Cambios pedidos por Leslie
+| # | Cambio | Decisión |
+|---|---|---|
+| 1 | Se queda el nombre **Calculadora RICA** | D-013 |
+| 2 | Sin "10 horas". La persona elige **cuántas horas por semana** puede invertir | D-014 (reemplaza D-010) |
+| 3 | Se muestra una leyenda de **horas recomendadas** | D-014 (reemplaza D-011) |
+| 4 | Se mantienen el **formato y los botones** de la calculadora actual | D-015 |
+| 5 | Debe ser **breve: unos 3 minutos** | D-016 |
+
+### Flujo: 4 pasos + resultado, 9 respuestas
+
+| Paso | Qué se pregunta | Formato (el actual) |
+|---|---|---|
+| 1 · Tu perfil | Cómo te hablamos · Años de experiencia · Área | Los mismos botones y slider de hoy |
+| 2 · Lo que ya tienes | Activos que ya tienes (6) · Cómo te gusta aportar valor (5) | Casillas como las de "Bloqueos" |
+| 3 · Tu tiempo | Cuánto recibes por hora · Cuánto crees que vale tu hora · **Horas por semana que puedes invertir** | 2 sliders actuales + los 4 botones actuales de horas |
+| 4 · Tus posibilidades | Elige 1 de las 3 que más encajan contigo | Botones de opción actuales |
+| Resultado | Activos · tu hora hoy · posibilidad elegida con plan de 4 pasos · escenario · aviso · CTA | Tarjetas actuales |
+
+**Horas por semana** (se reutilizan los botones actuales): `1–3 h` · `4–6 h` · `7–12 h` · `12+ h`
+Leyenda fija bajo los botones: **"Recomendado: 4–6 horas por semana."**
+Esta cifra no es nueva: ya está en la calculadora actual como regla del Método Rica IA™ (línea 564).
+
+**Se quita para que dure unos 3 minutos:** horas que trabajas para otros, forma de cobro, identidad, bloqueos, tema en texto libre, nivel de presencia.
+
+**Activos (6):** experiencia práctica · me piden consejo sobre esto · tengo un método o proceso propio · tengo casos o resultados · tengo materiales ya creados · tengo red o audiencia.
+
+### Fórmulas v1.2 (más simples, sin supuestos por tipo de proyecto)
+W = horas por semana según el botón elegido: 2 / 5 / 9 / 12. Se muestra como "aprox." porque cada botón es un rango.
+
+```
+CÁLCULO (solo datos de la persona)
+C1  horas_al_mes          = W × 4.33
+C2  valor_de_tu_tiempo    = C1 × tarifa                   "A tu tarifa actual, esas horas valen $C2 al mes"
+C3  brecha_por_hora       = max(0, valor_estimado − tarifa)
+
+ESCENARIO (editable: precio y unidades al mes)
+precio inicial            = valor_estimado                "punto de partida, no es una recomendación de precio"
+unidades iniciales        = ceil(C2 / precio)             punto de equilibrio: lo necesario para igualar tu tarifa actual
+E1  ingreso_bruto_mes     = precio × unidades
+E2  valor_por_hora        = E1 / C1                       comparado con tu tarifa actual
+```
+
+- Se eliminan las horas de entrega por tipo y los rangos de horas por tipo. Hay menos supuestos, y la pregunta Q12 queda casi sin objeto.
+- Sigue en pie el aviso fijo: "Escenario con tus propios supuestos. No es una proyección ni una promesa de ingresos. Cifras brutas."
+- Plan del piloto: los mismos 4 pasos (Claridad → Diseño → Versión mínima → Validación), sin horas por paso, con el texto "a tu ritmo de ~W h por semana".
+
+### Si elige 1–3 h por semana
+Aviso amable, adaptado del actual: "Con menos de 4 horas por semana el avance será más lento. Puedes empezar igual, con un piloto más pequeño."
+
+---
+
+## Secciones 1–11: análisis y propuesta v1.1 (referencia; la sección 0 manda)
 
 ---
 

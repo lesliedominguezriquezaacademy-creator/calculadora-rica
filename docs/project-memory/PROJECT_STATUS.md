@@ -9,7 +9,7 @@
 **Decisión D-008 (Leslie, 2026-09-29):** este repo = calculadora (lead magnet). Riqueza App = repo nuevo, pendiente de crear.
 
 Dos líneas de trabajo:
-1. **Calculadora (este repo):** rediseño conceptual propuesto (`docs/proposals/CALCULATOR_REDESIGN_v1.md`), pendiente de aprobación (Q9). El rediseño resolvería KI-03 a KI-08, KI-10 y KI-16.
+1. **Calculadora (este repo):** rediseño conceptual propuesto (`docs/proposals/CALCULATOR_REDESIGN_v1.md`), concepto aprobado con cambios (Q9); la versión breve v1.2 está pendiente de visto bueno para implementar (Q14). El rediseño resolvería KI-03 a KI-08, KI-10 y KI-16.
 2. **Riqueza App (repo nuevo):** bloqueada por Q2 (documento rector) y Q7 (creación del repo).
 
 ## Estado verificado del repositorio
@@ -54,5 +54,5 @@ Desconocido. No hay evidencia en el repositorio de dónde se publica la calculad
 
 ## Bloqueadores
 
-1. Calculadora: aprobación del concepto (Q9); luego Q10 y Q12 antes de implementar; Q3 antes del merge.
+1. Calculadora: visto bueno de la v1.2 (Q14); Q10 (mensaje de la Masterclass) antes de publicar; Q3 (hosting) antes del merge.
 2. Riqueza App: falta `docs/RIQUEZA_APP_MASTER_AGENT_PROJECT_v1.md` (Q2) y el repo nuevo (Q7).

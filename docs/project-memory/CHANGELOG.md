@@ -10,6 +10,7 @@ Cambios materiales del repositorio. Más reciente arriba.
 - Registrada decisión D-009 (nueva dirección de la calculadora).
 - Agregada propuesta `docs/proposals/CALCULATOR_REDESIGN_v1.md` (no aprobada).
 - Propuesta actualizada a v1.1: horas del piloto elegidas por la persona (D-010) y rango sugerido por tipo (D-011).
+- Propuesta v1.2: versión breve (4 pasos, 9 respuestas, horas por semana con leyenda de recomendado). Registradas D-013 a D-016.
 - Sin cambios en `calculadora-app.html`.
 
 ## Historial previo reconstruido desde git (2026-09-17, todo vía "upload" en GitHub web)
