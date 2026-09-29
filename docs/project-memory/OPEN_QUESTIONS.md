@@ -39,7 +39,7 @@ Depende de D-008. No se creará sin confirmación explícita de Leslie (acción 
 
 Describe Riqueza App, no la calculadora. Bajo D-008 pertenece al repo nuevo. Se mantiene aquí temporalmente (solo en la rama de trabajo) hasta crear ese repo.
 
-## Q9 — ¿Se aprueba el concepto "Mapa de Valor · 10 Horas"? · ABIERTA · PREGUNTADA 2026-09-29
+## Q9 — ¿Se aprueba el concepto "Mapa de Valor · 10 Horas"? · EN ESPERA de Q13
 
 Propuesta: `docs/proposals/CALCULATOR_REDESIGN_v1.md`. Bloquea la implementación del rediseño.
 
@@ -54,3 +54,7 @@ Contradice el tono sin promesas de D-009. Es una decisión de marca.
 ## Q12 — Revisar los supuestos de horas de entrega por tipo de proyecto · ABIERTA
 
 Tabla de la sección 6 de la propuesta. Son supuestos del agente; Leslie debe validarlos antes de implementar.
+
+## Q13 — ¿Cuál es el ancla de tiempo de la calculadora? · ABIERTA · PREGUNTADA 2026-09-29
+
+Leslie: "no me gusta mucho 10 horas" (duda sobre si son por semana o por mes). Esto cambia un elemento central de D-009. En la propuesta v1, las 10 h eran un total único, repartido según las horas disponibles de cada persona. Opciones planteadas: horas definidas por la persona / otro número fijo / ancla en un periodo / ancla en el resultado (primer piloto).

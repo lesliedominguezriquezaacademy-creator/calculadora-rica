@@ -21,4 +21,6 @@
 
 **Hecho:** auditoría de fórmulas, variables y copy; propuesta en `docs/proposals/CALCULATOR_REDESIGN_v1.md`. Sin cambios de código.
 
-**Siguiente:** Leslie responde Q9 (aprobar el concepto).
+**Feedback:** a Leslie no le convence el ancla de "10 horas" (Q13). Q9 queda en espera.
+
+**Siguiente:** Leslie responde Q13.
