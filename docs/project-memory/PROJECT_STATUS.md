@@ -4,7 +4,7 @@
 
 ## Fase actual
 
-**Fase 0 — Inicialización / Auditoría.** No se ha iniciado implementación.
+**Fase 1 — Calculadora RICA v2 en revisión.** `calculadora-rica-v2.html` está construida en la rama como copia aparte. La versión publicada (`calculadora-app.html`) no cambió.
 
 **Decisión D-008 (Leslie, 2026-09-29):** este repo = calculadora (lead magnet). Riqueza App = repo nuevo, pendiente de crear.
 
@@ -54,5 +54,5 @@ Desconocido. No hay evidencia en el repositorio de dónde se publica la calculad
 
 ## Bloqueadores
 
-1. Calculadora: visto bueno de la v1.2 (Q14); Q10 (mensaje de la Masterclass) antes de publicar; Q3 (hosting) antes del merge.
+1. Calculadora: revisión de la v2 por Leslie; Q10 (mensaje de la Masterclass) y Q11 (lluvia de dinero) antes de publicar; Q3 (hosting) antes del merge.
 2. Riqueza App: falta `docs/RIQUEZA_APP_MASTER_AGENT_PROJECT_v1.md` (Q2) y el repo nuevo (Q7).

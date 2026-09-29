@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora RICA · Riqueza Academy™</title>
+<meta name="description" content="Calculadora de Valor de Riqueza Academy™: descubre qué podrías crear con lo que ya sabes, a tu ritmo.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#C7A86A; --gold-p:#F5EDD8; --gold-d:#9A7A3A; --gold-l:#E8D5A3;
+  --rose:#C4838A; --cream:#F8F5F0; --cream-d:#EDE8DF; --cream-dd:#E0D8CC;
+  --char:#2A2A2A; --char-m:#4A4A4A; --char-l:#7A7A7A; --char-xl:#AEAEAE;
+  --green:#4A7A5A; --green-p:#D0E8D8;
+  --amber:#C7A86A; --amber-p:#F5EDD8;
+  --red:#9A3A3A; --red-p:#F5D5D5;
+  --white:#FFFFFF;
+  --sh:0 4px 24px rgba(42,42,42,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--char);min-height:100vh;}
+
+/* HERO — premium gold background */
+.hero{
+  background: linear-gradient(145deg, #E8C97A 0%, #D4AA55 35%, #EDD88A 65%, #E2C070 100%);
+  padding:56px 24px 48px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+#money-canvas{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  pointer-events:none;
+  z-index:0;
+  opacity:.75;
+}
+.hero::after{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,rgba(255,255,255,.4),transparent);
+}
+.hero > *{position:relative;z-index:1;}
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,6vw,58px);
+  font-weight:700;
+  color:#6B3A1F;
+  line-height:1.08;
+  margin-bottom:12px;
+  text-shadow:0 1px 2px rgba(255,255,255,.3);
+}
+.hero-title em{
+  color:#FFFFFF;
+  font-style:italic;
+  font-weight:600;
+  text-shadow:0 1px 6px rgba(107,58,31,.35);
+}
+.hero-eye{
+  font-size:10px;letter-spacing:3.5px;text-transform:uppercase;
+  color:rgba(107,58,31,.65);font-weight:500;margin-bottom:16px;
+}
+.hero-sub{
+  font-size:15px;
+  color:rgba(107,58,31,.80);
+  font-weight:300;
+  max-width:480px;
+  margin:0 auto 28px;
+  line-height:1.65;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(107,58,31,.10);
+  border:1px solid rgba(107,58,31,.22);
+  color:rgba(107,58,31,.80);
+  padding:9px 22px;border-radius:30px;
+  font-size:11px;font-weight:500;letter-spacing:0.8px;
+  backdrop-filter:blur(4px);
+}
+
+/* PROGRESS */
+.progress-wrap{background:var(--white);border-bottom:1px solid var(--cream-d);padding:14px 24px;position:sticky;top:0;z-index:40;box-shadow:0 2px 8px rgba(42,42,42,.05);}
+.progress-inner{max-width:680px;margin:0 auto;}
+.progress-steps{display:flex;justify-content:space-between;margin-bottom:10px;}
+.step-dot{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.step-circle{width:26px;height:26px;border-radius:50%;border:2px solid var(--cream-dd);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--char-xl);transition:all .3s;}
+.step-dot.done .step-circle{background:var(--green);border-color:var(--green);color:var(--white);}
+.step-dot.active .step-circle{background:var(--gold);border-color:var(--gold);color:var(--white);}
+.step-name{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--char-xl);}
+.step-dot.active .step-name{color:var(--gold);}
+.step-dot.done .step-name{color:var(--green);}
+.prog-bg{height:4px;background:var(--cream-d);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(to right,var(--gold),var(--gold-d));border-radius:2px;transition:width .5s ease;}
+
+/* CONTAINER */
+.wrap{max-width:680px;margin:0 auto;padding:32px 20px 80px;}
+
+/* STEP PANELS */
+.step{display:none;animation:fadeUp .35s ease;}
+.step.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* CARDS */
+.card{background:var(--white);border-radius:18px;padding:28px 28px 24px;box-shadow:var(--sh);margin-bottom:16px;}
+.card-eye{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:8px;}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;line-height:1.2;margin-bottom:6px;}
+.card-sub{font-size:13px;color:var(--char-l);font-weight:300;line-height:1.5;margin-bottom:22px;}
+
+/* OPCIÓN GRID */
+.opt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;}
+.opt-grid.cols3{grid-template-columns:repeat(3,1fr);}
+.opt{
+  padding:14px 12px;border-radius:12px;border:2px solid var(--cream-d);
+  background:var(--cream);cursor:pointer;text-align:left;
+  font-family:'Jost',sans-serif;transition:all .2s;
+  display:flex;flex-direction:column;gap:4px;
+}
+.opt:hover{border-color:var(--gold-l);background:var(--gold-p);}
+.opt.sel{border-color:var(--gold);background:var(--gold-p);}
+.opt-ico{font-size:22px;}
+.opt-lbl{font-size:13px;font-weight:600;color:var(--char);}
+.opt-sub{font-size:11px;color:var(--char-l);font-weight:300;line-height:1.3;}
+
+/* SLIDERS */
+.sl-wrap{margin-bottom:8px;}
+.sl-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--char-xl);margin-bottom:8px;}
+input[type=range]{
+  width:100%;-webkit-appearance:none;appearance:none;
+  height:6px;border-radius:3px;outline:none;cursor:pointer;
+  background:linear-gradient(to right,var(--gold) 0%,var(--gold) var(--pct,50%),var(--cream-d) var(--pct,50%));
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+  background:var(--gold);border:3px solid var(--white);
+  box-shadow:0 2px 8px rgba(199,168,106,.5);cursor:pointer;transition:transform .15s;
+}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15);}
+.sl-val{text-align:center;margin-top:12px;font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);}
+.sl-val span{font-size:14px;font-family:'Jost',sans-serif;color:var(--char-l);font-weight:300;}
+
+/* SALARIO CALCULADO */
+.sal-box{margin-top:18px;background:var(--cream);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.sal-cell{text-align:center;flex:1;}
+.sal-cell-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--char-l);font-weight:500;margin-bottom:4px;}
+.sal-cell-val{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;}
+.sal-op{font-size:18px;color:var(--char-xl);}
+
+/* BRECHA 3 NÚMEROS */
+.brecha-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:18px;}
+.brecha-cell{border-radius:12px;padding:14px;text-align:center;}
+.brecha-cell.pagado{background:var(--red-p);}
+.brecha-cell.vale{background:var(--green-p);}
+.brecha-cell.diff{background:var(--char);}
+.brecha-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:6px;}
+.brecha-cell.pagado .brecha-lbl{color:var(--red);}
+.brecha-cell.vale .brecha-lbl{color:var(--green);}
+.brecha-cell.diff .brecha-lbl{color:var(--gold-l);}
+.brecha-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;line-height:1;}
+.brecha-cell.pagado .brecha-num{color:var(--red);}
+.brecha-cell.vale .brecha-num{color:var(--green);}
+.brecha-cell.diff .brecha-num{color:var(--gold);}
+.brecha-note{font-size:10px;margin-top:4px;}
+.brecha-cell.pagado .brecha-note{color:var(--char-l);}
+.brecha-cell.vale .brecha-note{color:var(--char-l);}
+.brecha-cell.diff .brecha-note{color:rgba(255,255,255,.4);}
+
+.brecha-anual{margin-top:12px;background:var(--char);border-radius:12px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.ba-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-l);font-weight:300;}
+.ba-formula{font-size:11px;color:rgba(255,255,255,.3);margin-top:2px;}
+.ba-num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#E88080;}
+.ba-sub{font-size:10px;color:rgba(255,255,255,.3);text-align:right;}
+
+/* MENSAJE DINÁMICO */
+.msg-box{margin-top:12px;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.5;display:none;}
+.msg-box.info{background:var(--gold-p);border:1px solid var(--gold-l);color:var(--char-m);}
+.msg-box.ok{background:var(--green-p);border:1px solid #90C8A0;color:#2A5A3A;}
+.msg-box.warn{background:#FFF3F0;border:1px solid #E0A0A0;color:#7A3030;}
+
+/* CHECKS */
+.check-list{display:flex;flex-direction:column;gap:8px;}
+.chk{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;border:2px solid var(--cream-d);background:var(--cream);cursor:pointer;transition:all .2s;}
+.chk:hover{border-color:var(--gold-l);}
+.chk.sel{border-color:var(--gold);background:var(--gold-p);}
+.chk-box{width:20px;height:20px;border-radius:6px;border:2px solid var(--cream-dd);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;background:var(--white);transition:all .2s;}
+.chk.sel .chk-box{background:var(--gold);border-color:var(--gold);color:var(--white);}
+.chk-txt{font-size:13px;color:var(--char);}
+
+/* ALERT */
+.alert{margin-top:12px;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.5;display:none;}
+.alert.warn{background:#FFF3F0;border:1px solid #E0A0A0;color:#7A3030;}
+.alert.ok{background:#F0FAF3;border:1px solid #90C8A0;color:#2A5A3A;}
+.alert.info{background:var(--gold-p);border:1px solid var(--gold-l);color:var(--char-m);}
+
+/* NAV BUTTONS */
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px;}
+.btn-back{background:none;border:1px solid var(--cream-d);color:var(--char-l);padding:12px 22px;border-radius:10px;font-family:'Jost',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;}
+.btn-back:hover{border-color:var(--char-l);color:var(--char);}
+.btn-next{background:var(--gold);color:var(--white);border:none;padding:14px 32px;border-radius:10px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s;flex:1;max-width:240px;}
+.btn-next:hover:not(:disabled){background:var(--gold-d);transform:translateY(-1px);box-shadow:0 4px 16px rgba(199,168,106,.4);}
+.btn-next:disabled{background:var(--cream-dd);color:var(--char-xl);cursor:not-allowed;transform:none;box-shadow:none;}
+
+/* RESULTADOS */
+.res-hero{background:var(--char);border-radius:18px;padding:32px;margin-bottom:16px;}
+.res-eye{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-l);font-weight:300;margin-bottom:8px;}
+.res-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3.5vw,30px);font-weight:600;color:var(--white);line-height:1.2;margin-bottom:20px;}
+.res-title em{color:var(--gold);font-style:italic;}
+.costo-box{background:rgba(154,58,58,.15);border:1px solid rgba(154,58,58,.3);border-radius:12px;padding:20px;text-align:center;margin-bottom:12px;}
+.costo-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px;}
+.costo-num{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,8vw,70px);font-weight:700;color:#E88080;line-height:1;}
+.costo-sub{font-size:13px;color:rgba(255,255,255,.35);margin-top:4px;}
+.roi-box{background:rgba(74,122,90,.15);border:1px solid rgba(74,122,90,.3);border-radius:12px;padding:16px;text-align:center;}
+.roi-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px;}
+.roi-num{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:#80C890;}
+.roi-sub{font-size:11px;color:rgba(255,255,255,.35);margin-top:2px;}
+
+.bk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:14px;}
+.bk{background:var(--white);border-radius:12px;padding:18px;box-shadow:var(--sh);border-top:3px solid var(--cream-d);}
+.bk.red{border-top-color:var(--red);}
+.bk.gold{border-top-color:var(--gold);}
+.bk.green{border-top-color:var(--green);}
+.bk.rose{border-top-color:var(--rose);}
+.bk-ico{font-size:22px;margin-bottom:6px;}
+.bk-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--char-l);font-weight:500;margin-bottom:4px;}
+.bk-val{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;margin-bottom:4px;}
+.bk.red .bk-val{color:var(--red);}
+.bk.gold .bk-val{color:var(--gold);}
+.bk.green .bk-val{color:var(--green);}
+.bk.rose .bk-val{font-size:16px;color:var(--rose);}
+.bk-note{font-size:11px;color:var(--char-l);font-weight:300;line-height:1.4;}
+
+.persona-card{background:var(--white);border-radius:14px;padding:22px;box-shadow:var(--sh);margin-bottom:14px;border-left:4px solid var(--gold);}
+.persona-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;margin-bottom:10px;}
+.persona-text{font-size:13px;color:var(--char-m);font-weight:300;line-height:1.7;}
+
+.tl-card{background:var(--white);border-radius:14px;padding:22px;box-shadow:var(--sh);margin-bottom:14px;}
+.tl-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;margin-bottom:14px;}
+.tl-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--cream);flex-wrap:wrap;gap:8px;}
+.tl-row:last-child{border-bottom:none;}
+.tl-period{font-size:13px;font-weight:500;}
+.tl-values{display:flex;gap:20px;text-align:right;}
+.tl-lbl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--char-xl);}
+.tl-cost{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--red);}
+.tl-gain{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--green);}
+
+.ins-box{background:var(--char);border-radius:12px;padding:18px 20px;margin-bottom:14px;display:flex;gap:12px;}
+.ins-ico{font-size:18px;flex-shrink:0;margin-top:2px;}
+.ins-txt{font-size:13px;color:rgba(255,255,255,.65);font-weight:300;line-height:1.6;}
+.ins-txt strong{color:var(--gold-l);}
+
+.decision-card{background:linear-gradient(135deg,var(--gold-p),var(--cream));border:2px solid var(--gold-l);border-radius:18px;padding:28px;margin-bottom:14px;text-align:center;}
+.dc-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;margin-bottom:6px;}
+.dc-title em{color:var(--gold-d);font-style:italic;}
+.dc-sub{font-size:13px;color:var(--char-l);font-weight:300;margin-bottom:20px;line-height:1.6;}
+.dc-vs{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-bottom:20px;}
+.dc-opt{background:var(--white);border-radius:12px;padding:16px;}
+.dc-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:6px;}
+.dc-lbl.r{color:var(--red);}
+.dc-lbl.g{color:var(--green);}
+.dc-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;margin-bottom:4px;}
+.dc-num.r{color:var(--red);}
+.dc-num.g{color:var(--green);}
+.dc-note{font-size:11px;color:var(--char-l);font-weight:300;line-height:1.4;}
+.dc-sep{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--char-xl);}
+.cta-btn{display:block;width:100%;max-width:380px;margin:0 auto;background:var(--gold);color:var(--white);padding:17px 32px;border-radius:12px;border:none;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.cta-btn:hover{background:var(--gold-d);transform:translateY(-2px);box-shadow:0 6px 20px rgba(199,168,106,.5);}
+.cta-note{font-size:11px;color:var(--char-xl);margin-top:8px;}
+.share-row{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
+.share-btn{padding:9px 18px;border-radius:8px;border:1px solid var(--cream-d);background:var(--white);cursor:pointer;font-family:'Jost',sans-serif;font-size:12px;color:var(--char-l);transition:all .2s;display:flex;align-items:center;gap:5px;}
+.share-btn:hover{border-color:var(--gold);color:var(--gold);}
+
+footer{text-align:center;padding:24px;font-size:10px;color:var(--char-xl);letter-spacing:2px;text-transform:uppercase;border-top:1px solid var(--cream-d);}
+
+@media(max-width:600px){
+  .card{padding:20px 16px;}
+  .opt-grid.cols3{grid-template-columns:1fr 1fr 1fr;}
+  .brecha-grid{grid-template-columns:1fr;}
+  .dc-vs{grid-template-columns:1fr;}.dc-sep{display:none;}
+  .nav{flex-direction:column-reverse;}.btn-next{max-width:100%;}
+}
+
+/* ── v2: elementos nuevos (mismo sistema visual) ── */
+.legend{margin-top:10px;font-size:12px;color:var(--gold-d);font-weight:500;display:flex;align-items:center;gap:6px;}
+.tag{display:inline-block;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;padding:4px 10px;border-radius:20px;margin-bottom:10px;}
+.tag.calc{background:var(--green-p);color:var(--green);}
+.tag.esc{background:var(--gold-p);color:var(--gold-d);border:1px solid var(--gold-l);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+.chip{background:rgba(199,168,106,.15);border:1px solid rgba(199,168,106,.35);color:var(--gold-l);border-radius:20px;padding:6px 12px;font-size:12px;}
+.formula{font-size:11px;color:var(--char-l);margin-top:10px;line-height:1.5;}
+.formula code{font-family:'Jost',sans-serif;background:var(--cream);padding:1px 6px;border-radius:4px;}
+.opt.poss{flex-direction:row;align-items:flex-start;gap:12px;}
+.opt-badge{display:inline-block;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-d);font-weight:600;margin-bottom:2px;}
+.see-all{display:inline-block;margin-top:14px;font-size:12px;color:var(--char-l);cursor:pointer;text-decoration:underline;text-underline-offset:3px;background:none;border:none;font-family:'Jost',sans-serif;}
+.see-all:hover{color:var(--char);}
+.plan-step{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--cream);}
+.plan-step:last-child{border-bottom:none;}
+.plan-num{width:28px;height:28px;border-radius:50%;background:var(--gold-p);color:var(--gold-d);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px;flex-shrink:0;}
+.plan-t{font-size:13px;font-weight:600;margin-bottom:2px;}
+.plan-d{font-size:12px;color:var(--char-l);font-weight:300;line-height:1.5;}
+.note{font-size:12px;color:var(--char-l);font-weight:300;line-height:1.6;margin-top:12px;}
+.note strong{color:var(--char-m);font-weight:500;}
+.esc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
+.esc-cell{background:var(--cream);border-radius:12px;padding:14px;text-align:center;}
+.esc-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--char-l);font-weight:500;margin-bottom:6px;}
+.esc-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--char);line-height:1;}
+.esc-num.ok{color:var(--green);}
+.esc-sub{font-size:10px;color:var(--char-l);margin-top:4px;}
+.sl-mini .sl-val{font-size:26px;margin-top:6px;}
+.sl-mini{margin-top:14px;}
+.sl-mini-lbl{font-size:12px;font-weight:500;color:var(--char-m);}
+.disclaimer{margin-top:16px;background:var(--cream);border-left:3px solid var(--gold);border-radius:8px;padding:12px 14px;font-size:12px;color:var(--char-m);line-height:1.6;}
+.opt:focus-visible,.chk:focus-visible{outline:2px solid var(--gold-d);outline-offset:2px;}
+@media(max-width:600px){.esc-grid{grid-template-columns:1fr;}}
+@media (prefers-reduced-motion: reduce){#money-canvas{display:none;}.step{animation:none;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <canvas id="money-canvas"></canvas>
+  <div class="hero-eye">Riqueza Academy™ · Calculadora de Valor</div>
+  <div class="hero-title">¿Qué podrías crear<br><em>con lo que ya sabes?</em></div>
+  <div class="hero-sub">3 minutos para ver tu conocimiento como un activo y descubrir qué podrías construir con él, <span style="color:#FFFFFF;font-style:italic;font-weight:500;font-size:17px;display:block;margin-top:4px;">a tu ritmo.</span></div>
+  <div class="hero-badge">🔒 Gratis · Sin registro · Tus números, tus supuestos</div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <div class="progress-steps" id="progSteps"></div>
+    <div class="prog-bg"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ══════════ PASO 1 · PERFIL ══════════ -->
+<div class="step active" id="s1">
+
+  <div class="card">
+    <div class="card-eye">Paso 1 de 4 · Tu perfil</div>
+    <div class="card-title">¿Cómo prefieres que te hablemos?</div>
+    <div class="card-sub">El resultado se adapta a ti.</div>
+    <div class="opt-grid cols3" id="g-genero">
+      <div class="opt" onclick="pick('genero',this,'f','g-genero')"><span class="opt-ico">👩</span><span class="opt-lbl">Ella / su</span><span class="opt-sub">Lenguaje femenino</span></div>
+      <div class="opt" onclick="pick('genero',this,'m','g-genero')"><span class="opt-ico">👨</span><span class="opt-lbl">Él / su</span><span class="opt-sub">Lenguaje masculino</span></div>
+      <div class="opt" onclick="pick('genero',this,'n','g-genero')"><span class="opt-ico">🧑</span><span class="opt-lbl">Neutro</span><span class="opt-sub">Sin género específico</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-eye">Tu experiencia acumulada</div>
+    <div class="card-title">¿Cuántos años de experiencia tienes en lo que haces?</div>
+    <div class="card-sub">Cuentan los años de trabajo, estudio y práctica real.</div>
+    <div class="sl-wrap">
+      <div class="sl-labels"><span>1 año</span><span>20 años</span><span>40+ años</span></div>
+      <input type="range" id="sl-anos" min="1" max="40" value="10" oninput="slAnos(this)">
+      <div class="sl-val" id="sv-anos">10 <span>años</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-eye">Tu área</div>
+    <div class="card-title">¿En qué área está tu conocimiento más valioso?</div>
+    <div class="card-sub">Elige la que mejor te representa.</div>
+    <div class="opt-grid" id="g-area">
+      <div class="opt" onclick="pick('area',this,'salud','g-area')"><span class="opt-ico">🌿</span><span class="opt-lbl">Salud & Bienestar</span><span class="opt-sub">Nutrición, coaching, psicología</span></div>
+      <div class="opt" onclick="pick('area',this,'negocios','g-area')"><span class="opt-ico">💼</span><span class="opt-lbl">Negocios & Finanzas</span><span class="opt-sub">Consultoría, estrategia</span></div>
+      <div class="opt" onclick="pick('area',this,'educacion','g-area')"><span class="opt-ico">📚</span><span class="opt-lbl">Educación & Desarrollo</span><span class="opt-sub">Formación, liderazgo</span></div>
+      <div class="opt" onclick="pick('area',this,'creatividad','g-area')"><span class="opt-ico">🎨</span><span class="opt-lbl">Creatividad & Diseño</span><span class="opt-sub">Arte, comunicación</span></div>
+      <div class="opt" onclick="pick('area',this,'tech','g-area')"><span class="opt-ico">💻</span><span class="opt-lbl">Tecnología & IA</span><span class="opt-sub">Sistemas, innovación</span></div>
+      <div class="opt" onclick="pick('area',this,'otro','g-area')"><span class="opt-ico">✨</span><span class="opt-lbl">Otra área</span><span class="opt-sub">Cualquier expertise</span></div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <div></div>
+    <button class="btn-next" onclick="go(2)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ══════════ PASO 2 · ACTIVOS ══════════ -->
+<div class="step" id="s2">
+
+  <div class="card">
+    <div class="card-eye">Paso 2 de 4 · Lo que ya tienes</div>
+    <div class="card-title">Antes de pensar en qué crear, mira lo que ya tienes.</div>
+    <div class="card-sub">¿Cuáles de estos ya existen en tu vida profesional? Marca todos los que apliquen. Nadie empieza con todos.</div>
+    <div class="check-list" id="l-activos"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-eye">Cómo te gusta aportar</div>
+    <div class="card-title">No hay una sola forma de convertir conocimiento en valor.</div>
+    <div class="card-sub">¿Cómo te gusta ayudar a otras personas? Marca las que te hagan sentido.</div>
+    <div class="check-list" id="l-formas"></div>
+  </div>
+
+  <div class="nav">
+    <button class="btn-back" onclick="go(1)">← Atrás</button>
+    <button class="btn-next" onclick="go(3)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ══════════ PASO 3 · TIEMPO ══════════ -->
+<div class="step" id="s3">
+
+  <div class="card">
+    <div class="card-eye">Paso 3 de 4 · Tu tiempo hoy</div>
+    <div class="card-title">¿Cuánto recibes hoy por una hora de tu trabajo?</div>
+    <div class="card-sub">Si tienes salario fijo, divídelo entre las horas reales que trabajas. Es tu punto de referencia para comparar.</div>
+    <div class="sl-wrap">
+      <div class="sl-labels"><span>$5</span><span>$75</span><span>$150+</span></div>
+      <input type="range" id="sl-tarifa" min="5" max="150" value="25" oninput="slTarifa(this)">
+      <div class="sl-val" id="sv-tarifa">$25 <span>/ hora</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-eye">El valor de tu conocimiento</div>
+    <div class="card-title">Cuando alguien se beneficia de una hora de tu conocimiento, ¿cuánto crees que vale ese resultado para esa persona?</div>
+    <div class="card-sub">Es tu estimación. La usamos como referencia, no como verdad.</div>
+    <div class="sl-wrap">
+      <div class="sl-labels"><span>$20</span><span>$250</span><span>$500+</span></div>
+      <input type="range" id="sl-valor" min="20" max="500" step="10" value="100" oninput="slValor(this)">
+      <div class="sl-val" id="sv-valor">$100 <span>/ hora</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-eye">Tu ritmo</div>
+    <div class="card-title">¿Cuántas horas por semana puedes invertir en crear algo propio?</div>
+    <div class="card-sub">Elige una cifra que de verdad puedas cumplir.</div>
+    <div class="opt-grid" id="g-horas">
+      <div class="opt" onclick="pick('horas',this,2,'g-horas');alertHoras(2)"><span class="opt-ico">🌱</span><span class="opt-lbl">1–3 horas</span><span class="opt-sub">Avance pausado</span></div>
+      <div class="opt" onclick="pick('horas',this,5,'g-horas');alertHoras(5)"><span class="opt-ico">✅</span><span class="opt-lbl">4–6 horas</span><span class="opt-sub">Ritmo recomendado</span></div>
+      <div class="opt" onclick="pick('horas',this,9,'g-horas');alertHoras(9)"><span class="opt-ico">⚡</span><span class="opt-lbl">7–12 horas</span><span class="opt-sub">Avance activo</span></div>
+      <div class="opt" onclick="pick('horas',this,12,'g-horas');alertHoras(12)"><span class="opt-ico">🚀</span><span class="opt-lbl">12+ horas</span><span class="opt-sub">Alta dedicación</span></div>
+    </div>
+    <div class="legend">⭐ Recomendado: 4–6 horas por semana.</div>
+    <div class="alert" id="alert-horas"></div>
+  </div>
+
+  <div class="nav">
+    <button class="btn-back" onclick="go(2)">← Atrás</button>
+    <button class="btn-next" id="btn3" onclick="go(4)" disabled>Siguiente →</button>
+  </div>
+</div>
+
+<!-- ══════════ PASO 4 · POSIBILIDADES ══════════ -->
+<div class="step" id="s4">
+  <div class="card">
+    <div class="card-eye">Paso 4 de 4 · Tus posibilidades</div>
+    <div class="card-title">¿Por dónde empezarías?</div>
+    <div class="card-sub">Estas son las posibilidades que más encajan con tus respuestas. Elige una para explorarla. Puedes cambiarla después.</div>
+    <div class="opt-grid" id="g-poss" style="grid-template-columns:1fr;"></div>
+    <button class="see-all" id="see-all" onclick="toggleAll()">Ver todas las posibilidades</button>
+  </div>
+  <div class="nav">
+    <button class="btn-back" onclick="go(3)">← Atrás</button>
+    <button class="btn-next" id="btn4" onclick="go(5)" disabled>Ver mi resultado →</button>
+  </div>
+</div>
+
+<!-- ══════════ RESULTADO ══════════ -->
+<div class="step" id="s5">
+
+  <div class="res-hero">
+    <div class="res-eye">Tu resultado · Calculadora RICA</div>
+    <div class="res-title" id="res-title">No empiezas<br><em>desde cero.</em></div>
+    <div class="ins-txt" id="res-activos-txt" style="margin-bottom:10px;"></div>
+    <div class="chips" id="res-activos"></div>
+  </div>
+
+  <div class="card">
+    <span class="tag calc">Cálculo · con tus datos</span>
+    <div class="card-title">Tu hora hoy</div>
+    <div class="brecha-grid">
+      <div class="brecha-cell pagado"><div class="brecha-lbl">Recibes</div><div class="brecha-num" id="r-tarifa">$0</div><div class="brecha-note">por hora</div></div>
+      <div class="brecha-cell vale"><div class="brecha-lbl">Estimas que vale</div><div class="brecha-num" id="r-valor">$0</div><div class="brecha-note">por hora</div></div>
+      <div class="brecha-cell diff"><div class="brecha-lbl">Diferencia</div><div class="brecha-num" id="r-diff">$0</div><div class="brecha-note">por hora, según tu estimación</div></div>
+    </div>
+    <div class="note" id="r-tiempo"></div>
+    <div class="formula" id="r-formula-calc"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-eye" id="r-poss-eye">Tu posibilidad</div>
+    <div class="card-title" id="r-poss-title"></div>
+    <div class="card-sub" id="r-poss-desc" style="margin-bottom:10px;"></div>
+    <div class="card-eye" style="margin-top:4px;">Tu primer piloto en 4 pasos</div>
+    <div id="r-plan"></div>
+    <div class="note" id="r-poss-notas"></div>
+  </div>
+
+  <div class="card">
+    <span class="tag esc">Escenario · tus supuestos</span>
+    <div class="card-title">Juega con los números</div>
+    <div class="card-sub" style="margin-bottom:6px;">Todo lo que ves aquí lo defines tú. Empieza en el punto donde tus horas igualarían lo que hoy recibes.</div>
+
+    <div class="sl-mini">
+      <div class="sl-mini-lbl">Precio por <span id="u-sing">unidad</span></div>
+      <input type="range" id="sl-precio" min="5" max="2000" step="5" value="100" oninput="calcEsc()">
+      <div class="sl-val" id="sv-precio">$100</div>
+    </div>
+    <div class="sl-mini">
+      <div class="sl-mini-lbl"><span id="u-plur-cap">Unidades</span> al mes</div>
+      <input type="range" id="sl-unid" min="1" max="500" step="1" value="1" oninput="calcEsc()">
+      <div class="sl-val" id="sv-unid">1</div>
+    </div>
+
+    <div class="esc-grid">
+      <div class="esc-cell"><div class="esc-lbl">Ingreso bruto del escenario</div><div class="esc-num" id="e-ingreso">$0</div><div class="esc-sub">al mes</div></div>
+      <div class="esc-cell"><div class="esc-lbl">Equivale por hora a</div><div class="esc-num" id="e-hora">$0</div><div class="esc-sub" id="e-hora-sub">hoy recibes $0</div></div>
+    </div>
+    <div class="note" id="e-equilibrio"></div>
+    <div class="formula" id="e-formula"></div>
+    <div class="disclaimer"><strong>Importante:</strong> esto es un escenario construido con tus propios supuestos. No es una proyección ni una promesa de ingresos. Los resultados reales dependen de la demanda, de tu oferta, de tu ejecución y de factores que este ejercicio no mide. Las cifras son ingresos brutos, antes de costos, comisiones e impuestos.</div>
+  </div>
+
+  <div class="decision-card">
+    <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-d);margin-bottom:12px;font-weight:600;">Tu siguiente paso · Sin costo</div>
+    <div class="dc-title">Lo que sabes puede<br><em>convertirse en valor.</em></div>
+    <div class="dc-sub">El siguiente paso no es construirlo todo. Es validar una posibilidad con un primer piloto. Te invitamos a la Masterclass gratuita para dar ese paso con acompañamiento.</div>
+
+    <div style="background:linear-gradient(135deg,#F5EDD8,#EDD8A0);border-radius:10px;padding:20px;margin:20px 0;text-align:center;">
+      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-d);font-weight:600;margin-bottom:8px;">Masterclass Gratuita · Riqueza Academy™</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--char-m);margin-bottom:6px;">Monetiza tu Conocimiento con IA</div>
+      <div style="font-size:13px;color:var(--char-l);margin-bottom:4px;">📅 <strong id="mc-fecha-card">—</strong> · 7:00 PM ET</div>
+      <div style="font-size:11px;color:var(--char-xl);margin-top:4px;">📌 Disponible solo el tercer miércoles de cada mes</div>
+    </div>
+
+    <button class="cta-btn" onclick="window.open('https://lesliedominguezriquezaacademy.systeme.io/calculadora-optin','_blank')">Separar mi espacio gratis →</button>
+    <div class="cta-note">✦ Acceso gratuito · Cupos limitados · <span id="mc-fecha-nota">—</span></div>
+  </div>
+
+  <div class="share-row">
+    <button class="share-btn" onclick="reset()">↺ Recalcular</button>
+    <button class="share-btn" onclick="copiar()">⎘ Copiar resultado</button>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+<footer>Riqueza Academy™ · Calculadora RICA · #MiCaminoRICA</footer>
+
+<script>
+// ══════════════════════════════
+// ESTADO
+// ══════════════════════════════
+const DEF = { genero:'n', anos:10, area:null, tarifa:25, valor:100, horas:null, poss:null };
+const D = Object.assign({ activos:{}, formas:{} }, DEF);
+
+const f = n => Math.round(n).toLocaleString('es-US');
+const WEEKS_PER_MONTH = 52/12; // 4.33
+
+// Trato
+const G = {
+  f:{ experta:'experta' },
+  m:{ experta:'experto' },
+  n:{ experta:'profesional' }
+};
+
+const AREA_NOM = { salud:'Salud & Bienestar', negocios:'Negocios & Finanzas', educacion:'Educación & Desarrollo', creatividad:'Creatividad & Diseño', tech:'Tecnología & IA', otro:'tu área' };
+
+// ══════════════════════════════
+// ACTIVOS Y FORMAS DE APORTAR
+// ══════════════════════════════
+const ACTIVOS = [
+  { k:'experiencia', t:'Experiencia práctica resolviendo un problema concreto', c:'Experiencia práctica' },
+  { k:'consejo',     t:'Me piden consejo sobre esto con frecuencia',            c:'Te piden consejo' },
+  { k:'metodo',      t:'Tengo un método o proceso propio (aunque no esté escrito)', c:'Método propio' },
+  { k:'casos',       t:'Tengo casos o resultados que puedo mostrar',            c:'Casos y resultados' },
+  { k:'materiales',  t:'Tengo materiales ya creados (plantillas, guías, presentaciones, notas)', c:'Materiales creados' },
+  { k:'red',         t:'Tengo una red de contactos o una audiencia que confía en mí', c:'Red o audiencia' }
+];
+const FORMAS = [
+  { k:'uno',       t:'Uno a uno, acompañando a cada persona',  c:'uno a uno' },
+  { k:'grupo',     t:'En grupo, enseñando a varias personas a la vez', c:'en grupo' },
+  { k:'contenido', t:'Escribiendo o creando contenido y materiales', c:'creando contenido' },
+  { k:'vivo',      t:'En vivo: talleres, charlas o eventos',   c:'en vivo' },
+  { k:'org',       t:'Para organizaciones o empresas',          c:'para organizaciones' }
+];
+
+// ══════════════════════════════
+// CATÁLOGO DE POSIBILIDADES
+// formas/activos: qué suma afinidad · req: activos clave (si faltan, resta)
+// ══════════════════════════════
+const POSIB = [
+  { k:'servicio', ico:'🛠️', n:'Servicio especializado', u:['cliente','clientes'],
+    d:'Resuelves un problema concreto para alguien, con un alcance y un precio claros.',
+    formas:['uno','org'], activos:['experiencia','red','casos'],
+    piloto:'Escribe una oferta de una página: qué haces, para quién, qué incluye y cuánto cuesta.',
+    no:'Un piloto no te da todavía una cartera de clientes ni un proceso probado a escala.',
+    req:'Necesitas a alguien con ese problema y dispuesto a pagar por resolverlo.' },
+  { k:'consultoria', ico:'💼', n:'Consultoría', u:['cliente','clientes'],
+    d:'Diagnosticas y recomiendas un camino a partir de tu experiencia.',
+    formas:['uno','org'], activos:['experiencia','metodo','casos'], anos:10,
+    piloto:'Empaqueta un diagnóstico: preguntas, entregable y duración. Pruébalo con un caso piloto.',
+    no:'Un piloto no reemplaza la confianza que se construye con varios casos.',
+    req:'Funciona mejor con un problema de negocio claro y resultados que puedas mostrar.' },
+  { k:'coaching', ico:'🧭', n:'Coaching o acompañamiento', u:['cliente','clientes'],
+    d:'Acompañas a una persona en un proceso con inicio, fin y un objetivo claro.',
+    formas:['uno'], activos:['experiencia','consejo'],
+    piloto:'Diseña la estructura del proceso (número de sesiones y objetivo) y ofrece una sesión piloto.',
+    no:'Un piloto no te da todavía un proceso validado con muchas personas.',
+    req:'Necesita un proceso definido, no solo conversaciones.' },
+  { k:'taller', ico:'🎤', n:'Taller', u:['participante','participantes'],
+    d:'Enseñas un tema concreto a un grupo, en una sesión de pocas horas.',
+    formas:['grupo','vivo'], activos:['materiales','red'],
+    piloto:'Crea el temario de un taller de 2–3 horas y abre una lista de interesados con fecha tentativa.',
+    no:'Un piloto no garantiza asistencia; la convocatoria es parte de la validación.',
+    req:'Un tema acotado y una forma de convocar a las personas.' },
+  { k:'programa', ico:'🗓️', n:'Programa grupal', u:['participante','participantes'],
+    d:'Guías a un grupo hacia un resultado durante varias semanas.',
+    formas:['grupo','vivo'], activos:['metodo','casos','materiales'],
+    piloto:'Dibuja el mapa de módulos, escribe la primera semana en borrador y abre una lista de espera.',
+    no:'Un piloto no es el programa completo; es la prueba de que alguien lo quiere.',
+    req:'Un resultado claro que el grupo pueda alcanzar en semanas.' },
+  { k:'producto', ico:'🧩', n:'Producto digital', u:['venta','ventas'],
+    d:'Plantillas, kits o mini-cursos que se venden sin que estés presente en cada entrega.',
+    formas:['contenido'], activos:['materiales','metodo','red'],
+    piloto:'Crea una versión mínima de un solo componente (por ejemplo, una plantilla o un módulo).',
+    no:'Un piloto no crea audiencia: sin personas que lo vean, no se vende solo.',
+    req:'Necesita una audiencia o un canal por donde llegar a las personas.' },
+  { k:'ebook', ico:'📖', n:'Ebook o guía', u:['venta','ventas'],
+    d:'Tu conocimiento ordenado por escrito para que otras personas lo apliquen.',
+    formas:['contenido'], activos:['materiales','consejo'],
+    piloto:'Escribe el índice y un capítulo de muestra, y compártelo con algunas personas.',
+    no:'Un piloto no es el libro terminado ni su distribución.',
+    req:'Funciona mejor con un tema muy específico.' },
+  { k:'membresia', ico:'🔁', n:'Membresía', u:['miembro','miembros'],
+    d:'Un espacio con contenido o acompañamiento que las personas pagan cada mes.',
+    formas:['contenido','grupo'], activos:['red','materiales'],
+    piloto:'Define la promesa mensual y el formato, crea el primer contenido y abre una lista de espera.',
+    no:'Un piloto no demuestra que las personas se quedarán mes a mes.',
+    req:'Requiere constancia: hay que cumplir cada mes.' },
+  { k:'evento', ico:'✨', n:'Experiencia o evento', u:['asistente','asistentes'],
+    d:'Un encuentro, retiro o experiencia que transforma algo en quienes asisten.',
+    formas:['vivo','grupo'], activos:['red'],
+    piloto:'Define el concepto y el formato, y lanza una convocatoria piloto.',
+    no:'Un piloto no resuelve toda la logística de un evento grande.',
+    req:'Implica logística y convocatoria.' },
+  { k:'licencia', ico:'📜', n:'Licencia de tu metodología', u:['licencia','licencias'],
+    d:'Otras personas u organizaciones usan tu método con tu permiso.',
+    formas:['org'], activos:['metodo','casos'], anos:10, req_k:['metodo','casos'],
+    piloto:'Documenta tu método en una versión 0: pasos, criterios y herramientas.',
+    no:'Un piloto no sustituye tener resultados comprobados con tu método.',
+    req:'Requiere un método probado y con resultados.' },
+  { k:'otro', ico:'🌟', n:'Otro activo de conocimiento', u:['venta','ventas'],
+    d:'Cualquier otra forma de convertir lo que sabes en valor para otras personas.',
+    formas:[], activos:[], hidden:true,
+    piloto:'Define la versión más pequeña de tu idea que puedas mostrar a personas reales.',
+    no:'Un piloto no es la versión final.',
+    req:'Tú defines el formato.' }
+];
+
+const PLAN = [
+  { t:'Claridad',        d:'Define para quién es y qué problema resuelve. Resultado: una frase que explica tu oferta.' },
+  { t:'Diseño',          d:'Elige el formato, el alcance y un precio de prueba.' },
+  { t:'Versión mínima',  d:null }, // se llena con POSIB.piloto
+  { t:'Validación',      d:'Preséntala a personas reales de tu red o audiencia y escucha qué responden.' }
+];
+
+// ══════════════════════════════
+// NAVEGACIÓN
+// ══════════════════════════════
+const PASOS = [{n:1,l:'Perfil'},{n:2,l:'Activos'},{n:3,l:'Tiempo'},{n:4,l:'Opciones'},{n:5,l:'Resultado'}];
+
+function go(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+  updateProg(n);
+  if(n===4) buildPosib();
+  if(n===5) buildResults();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function updateProg(n) {
+  const pct = ((n-1)/(PASOS.length-1))*100;
+  document.getElementById('progFill').style.width = pct+'%';
+  document.getElementById('progSteps').innerHTML = PASOS.map(p=>`
+    <div class="step-dot ${p.n<n?'done':p.n===n?'active':''}">
+      <div class="step-circle">${p.n<n?'✓':p.n}</div>
+      <div class="step-name">${p.l}</div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════
+// SELECCIÓN
+// ══════════════════════════════
+function pick(key, el, val, gridId) {
+  document.getElementById(gridId).querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  D[key] = val;
+  if(key==='horas') document.getElementById('btn3').disabled = false;
+  if(key==='poss')  document.getElementById('btn4').disabled = false;
+}
+
+function toggleChk(el, group, key) {
+  el.classList.toggle('sel');
+  if(el.classList.contains('sel')) D[group][key] = true;
+  else delete D[group][key];
+}
+
+function renderChecks(listId, items, group) {
+  document.getElementById(listId).innerHTML = items.map(i =>
+    `<div class="chk" onclick="toggleChk(this,'${group}','${i.k}')"><div class="chk-box">✓</div><span class="chk-txt">${i.t}</span></div>`
+  ).join('');
+}
+
+// ══════════════════════════════
+// SLIDERS
+// ══════════════════════════════
+function setPct(el) {
+  const min = +el.min, max = +el.max, v = +el.value;
+  el.style.setProperty('--pct', ((v-min)/(max-min)*100)+'%');
+}
+function slAnos(el)   { setPct(el); D.anos = +el.value; document.getElementById('sv-anos').innerHTML = `${D.anos}${D.anos>=40?'+':''} <span>años</span>`; }
+function slTarifa(el) { setPct(el); D.tarifa = +el.value; document.getElementById('sv-tarifa').innerHTML = `$${D.tarifa} <span>/ hora</span>`; }
+function slValor(el)  { setPct(el); D.valor = +el.value; document.getElementById('sv-valor').innerHTML = `$${D.valor} <span>/ hora</span>`; }
+
+// ══════════════════════════════
+// MENSAJES
+// ══════════════════════════════
+function show(el, tipo, html) {
+  el.className = 'alert '+tipo;
+  el.style.display = 'block';
+  el.innerHTML = html;
+}
+function alertHoras(v) {
+  const el = document.getElementById('alert-horas');
+  if(v<=2)       show(el,'warn','<strong>Está bien empezar pequeño.</strong> Con menos de 4 horas por semana el avance será más lento. Puedes empezar igual, con un piloto más pequeño.');
+  else if(v===5) show(el,'ok','<strong>✅ Ritmo recomendado.</strong> 4–6 horas por semana permiten avanzar de forma sostenida.');
+  else           show(el,'info','<strong>🚀 Buen ritmo.</strong> Con más horas puedes avanzar más rápido. Cuida que sea sostenible.');
+}
+
+// ══════════════════════════════
+// AFINIDAD — heurística transparente, no es un diagnóstico
+// +2 por cada forma de aportar que coincide · +1 por cada activo que la fortalece
+// +1 si tienes 10+ años y el tipo lo aprovecha · −2 si falta un activo clave
+// ══════════════════════════════
+function score(p) {
+  let s = 0;
+  p.formas.forEach(k => { if(D.formas[k]) s += 2; });
+  p.activos.forEach(k => { if(D.activos[k]) s += 1; });
+  if(p.anos && D.anos >= p.anos) s += 1;
+  if(p.req_k && !p.req_k.every(k => D.activos[k])) s -= 2;
+  return s;
+}
+
+function reason(p) {
+  const fo = FORMAS.filter(x => p.formas.includes(x.k) && D.formas[x.k]).map(x => x.c);
+  const ac = ACTIVOS.filter(x => p.activos.includes(x.k) && D.activos[x.k]).map(x => x.c.toLowerCase());
+  const parts = [];
+  if(fo.length) parts.push('te gusta aportar ' + fo.slice(0,2).join(' y '));
+  if(ac.length) parts.push('ya tienes ' + ac.slice(0,2).join(' y '));
+  return parts.length ? 'Encaja porque ' + parts.join(', y ') + '.' : p.d;
+}
+
+let showAll = false;
+function ranked() {
+  return POSIB.filter(p => !p.hidden)
+    .map((p,i) => ({p, s:score(p), i}))
+    .sort((a,b) => b.s - a.s || a.i - b.i)
+    .map(x => x.p);
+}
+
+function buildPosib() {
+  const list = ranked();
+  const top = list.slice(0,3);
+  const items = showAll ? list.concat(POSIB.filter(p => p.hidden)) : top;
+  document.getElementById('g-poss').innerHTML = items.map(p => {
+    const esTop = top.includes(p);
+    return `<div class="opt poss${D.poss===p.k?' sel':''}" onclick="pick('poss',this,'${p.k}','g-poss')">
+      <span class="opt-ico">${p.ico}</span>
+      <div>${esTop?'<span class="opt-badge">Encaja contigo</span><br>':''}<span class="opt-lbl">${p.n}</span><br><span class="opt-sub">${esTop?reason(p):p.d}</span></div>
+    </div>`;
+  }).join('');
+  document.getElementById('see-all').textContent = showAll ? 'Ver solo las 3 que más encajan' : 'Ver todas las posibilidades';
+  a11y(document.getElementById('g-poss'));
+}
+
+function toggleAll() { showAll = !showAll; buildPosib(); }
+
+// ══════════════════════════════
+// RESULTADO
+// ══════════════════════════════
+function buildResults() {
+  const g = G[D.genero] || G.n;
+  const p = POSIB.find(x => x.k === D.poss) || POSIB[0];
+  const areaNom = D.area ? AREA_NOM[D.area] : 'tu área';
+  const W = D.horas || 5;
+
+  // Activos
+  const act = ACTIVOS.filter(a => D.activos[a.k]);
+  document.getElementById('res-activos-txt').innerHTML = act.length
+    ? `Como ${g.experta} en ${areaNom}, con <strong>${D.anos} años de experiencia</strong>, ya tienes <strong>${act.length} ${act.length===1?'activo':'activos'}</strong> con los que construir:`
+    : `Como ${g.experta} en ${areaNom}, tus <strong>${D.anos} años de experiencia</strong> ya son un punto de partida.`;
+  document.getElementById('res-activos').innerHTML = act.map(a => `<span class="chip">${a.c}</span>`).join('');
+
+  // Cálculo
+  const horasMes = W * WEEKS_PER_MONTH;
+  const valorTiempo = horasMes * D.tarifa;
+  document.getElementById('r-tarifa').textContent = '$'+D.tarifa;
+  document.getElementById('r-valor').textContent  = '$'+D.valor;
+  document.getElementById('r-diff').textContent   = '$'+Math.max(0, D.valor - D.tarifa);
+  document.getElementById('r-tiempo').innerHTML =
+    `Con ~${W} horas por semana, son unas <strong>${f(horasMes)} horas al mes</strong>. A tu tarifa actual, esas horas valen <strong>$${f(valorTiempo)} al mes</strong>. Es lo que inviertes cuando las dedicas a crear algo propio.`;
+  document.getElementById('r-formula-calc').innerHTML =
+    `Cómo se calcula: <code>${W} h/semana × 4.33 semanas = ${f(horasMes)} h/mes</code> · <code>${f(horasMes)} h × $${D.tarifa} = $${f(valorTiempo)}</code>` +
+    (W===2||W===5||W===9||W===12 ? ' · Las horas por semana son aproximadas, según el rango que elegiste.' : '');
+
+  // Posibilidad y plan
+  document.getElementById('r-poss-eye').textContent = 'La posibilidad que elegiste';
+  document.getElementById('r-poss-title').textContent = p.ico + ' ' + p.n;
+  document.getElementById('r-poss-desc').textContent = p.d;
+  document.getElementById('r-plan').innerHTML = PLAN.map((s,i) => `
+    <div class="plan-step"><div class="plan-num">${i+1}</div><div><div class="plan-t">${s.t}</div><div class="plan-d">${s.d || p.piloto}</div></div></div>`).join('');
+  document.getElementById('r-poss-notas').innerHTML =
+    `<strong>A tu ritmo:</strong> ~${W} horas por semana. ${W<4?'Empieza con la versión más pequeña posible.':''}<br>
+     <strong>Qué no logra un piloto:</strong> ${p.no}<br>
+     <strong>Tenlo en cuenta:</strong> ${p.req}`;
+
+  // Escenario: arranca en el punto de equilibrio
+  document.getElementById('u-sing').textContent = p.u[0];
+  document.getElementById('u-plur-cap').textContent = p.u[1].charAt(0).toUpperCase() + p.u[1].slice(1);
+  const slP = document.getElementById('sl-precio');
+  const slU = document.getElementById('sl-unid');
+  slP.value = Math.min(+slP.max, Math.max(+slP.min, D.valor));
+  slU.value = Math.min(+slU.max, Math.max(1, Math.ceil(valorTiempo / +slP.value)));
+  calcEsc();
+}
+
+function calcEsc() {
+  const p = POSIB.find(x => x.k === D.poss) || POSIB[0];
+  const W = D.horas || 5;
+  const horasMes = W * WEEKS_PER_MONTH;
+  const valorTiempo = horasMes * D.tarifa;
+  const slP = document.getElementById('sl-precio');
+  const slU = document.getElementById('sl-unid');
+  setPct(slP); setPct(slU);
+  const precio = +slP.value, unid = +slU.value;
+  const ingreso = precio * unid;
+  const porHora = ingreso / horasMes;
+  const equilibrio = Math.ceil(valorTiempo / precio);
+  const uU = n => n===1 ? p.u[0] : p.u[1];
+
+  document.getElementById('sv-precio').textContent = '$'+f(precio);
+  document.getElementById('sv-unid').textContent = unid + ' ' + uU(unid);
+  document.getElementById('e-ingreso').textContent = '$'+f(ingreso);
+  const eh = document.getElementById('e-hora');
+  eh.textContent = '$'+f(porHora);
+  eh.className = 'esc-num' + (porHora >= D.tarifa ? ' ok' : '');
+  document.getElementById('e-hora-sub').textContent = 'por hora · hoy recibes $'+D.tarifa;
+  document.getElementById('e-equilibrio').innerHTML =
+    `Para igualar lo que hoy valen tus horas ($${f(valorTiempo)} al mes), a $${f(precio)} harían falta <strong>${f(equilibrio)} ${uU(equilibrio)} al mes</strong>.` +
+    (equilibrio > +slU.max ? ' Es más de lo que muestra el control; prueba con otro precio.' : '');
+  document.getElementById('e-formula').innerHTML =
+    `Cómo se calcula: <code>$${f(precio)} × ${unid} = $${f(ingreso)}</code> · <code>$${f(ingreso)} ÷ ${f(horasMes)} h al mes = $${f(porHora)} por hora</code>. ` +
+    `Supone que dedicas tus ~${f(horasMes)} horas del mes a crear, entregar y dar a conocer esta posibilidad. El precio inicial es tu propio valor estimado por hora: es un punto de partida, no una recomendación de precio.`;
+}
+
+// ══════════════════════════════
+// RESET & UTILS
+// ══════════════════════════════
+function reset() {
+  Object.assign(D, DEF, { activos:{}, formas:{} });
+  showAll = false;
+  document.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+  document.querySelectorAll('.chk').forEach(c => c.classList.remove('sel'));
+  document.querySelectorAll('.alert').forEach(m => m.style.display='none');
+  document.getElementById('btn3').disabled = true;
+  document.getElementById('btn4').disabled = true;
+  [['sl-anos',DEF.anos,slAnos],['sl-tarifa',DEF.tarifa,slTarifa],['sl-valor',DEF.valor,slValor]].forEach(([id,v,fn]) => {
+    const el = document.getElementById(id); el.value = v; fn(el);
+  });
+  go(1);
+}
+
+function copiar() {
+  const p = POSIB.find(x => x.k === D.poss);
+  const n = Object.keys(D.activos).length;
+  const txt = `Mi resultado · Calculadora RICA · Riqueza Academy™\n✨ Activos: ${n}\n🧭 Posibilidad que exploro: ${p ? p.n : '—'}\n⏳ Mi ritmo: ~${D.horas || 5} h por semana\n\n#MiCaminoRICA`;
+  if(navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(() => alert('¡Copiado!'), () => alert(txt));
+  } else {
+    alert(txt);
+  }
+}
+
+// Teclado: opciones y casillas se pueden usar con Tab + Enter/Espacio
+function a11y(root) {
+  root.querySelectorAll('.opt,.chk').forEach(el => {
+    if(el.dataset.a11y) return;
+    el.dataset.a11y = '1';
+    el.setAttribute('role','button');
+    el.setAttribute('tabindex','0');
+    el.addEventListener('keydown', e => {
+      if(e.key==='Enter' || e.key===' ') { e.preventDefault(); el.click(); }
+    });
+  });
+}
+
+// ══════════════════════════════
+// FECHA — Tercer miércoles del mes (incluye el día de hoy)
+// ══════════════════════════════
+function getTercerMiercoles() {
+  const hoy = new Date(); hoy.setHours(0,0,0,0);
+  const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  for(let delta = 0; delta <= 2; delta++) {
+    const base = new Date(hoy.getFullYear(), hoy.getMonth() + delta, 1);
+    const primerMie = 1 + ((3 - base.getDay() + 7) % 7);
+    const fecha = new Date(base.getFullYear(), base.getMonth(), primerMie + 14);
+    if(fecha >= hoy) return fecha.getDate() + ' de ' + meses[fecha.getMonth()] + ', ' + fecha.getFullYear();
+  }
+  return '';
+}
+
+// ══════════════════════════════
+// INIT
+// ══════════════════════════════
+renderChecks('l-activos', ACTIVOS, 'activos');
+renderChecks('l-formas', FORMAS, 'formas');
+a11y(document);
+updateProg(1);
+['sl-anos','sl-tarifa','sl-valor'].forEach(id => setPct(document.getElementById(id)));
+(function() {
+  const fecha = getTercerMiercoles();
+  document.getElementById('mc-fecha-card').textContent = fecha || 'Tercer miércoles del mes';
+  document.getElementById('mc-fecha-nota').textContent = fecha ? fecha + ' · 7 PM ET' : '7 PM ET';
+})();
+</script>
+<script>
+// ══════════════════════════════
+// LLUVIA DE DINERO — canvas animation
+// ══════════════════════════════
+(function() {
+  const canvas = document.getElementById('money-canvas');
+  const ctx    = canvas.getContext('2d');
+  const hero   = canvas.parentElement;
+
+  // Símbolos y billetes
+  const SYMBOLS = ['$','€','£','¥','$','$','$','💵','💰','$','✦','◈'];
+  const BILLS   = ['$100','$50','$20','$'];
+
+  let W, H, particles;
+
+  function resize() {
+    W = canvas.width  = hero.offsetWidth;
+    H = canvas.height = hero.offsetHeight;
+  }
+
+  function Particle() {
+    this.reset = function(initial) {
+      this.x     = Math.random() * W;
+      this.y     = initial ? Math.random() * H : -40;
+      this.size  = Math.random() * 18 + 12;       // 12–30px — más grandes
+      this.speed = Math.random() * 1.0 + 0.5;     // un poco más rápido
+      this.drift = (Math.random() - 0.5) * 0.5;
+      this.rot   = Math.random() * Math.PI * 2;
+      this.rotV  = (Math.random() - 0.5) * 0.04;
+      this.alpha = Math.random() * 0.55 + 0.30;   // 0.30–0.85 — más visible
+      this.sym   = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+      this.isBill = Math.random() < 0.20;          // 20% billetes
+      this.billW = Math.random() * 30 + 22;
+      this.billH = this.billW * 0.45;
+      // Colores más oscuros para contrastar sobre dorado claro
+      const palette = [
+        'rgba(42,28,8,',       // marrón oscuro — principal
+        'rgba(42,28,8,',
+        'rgba(255,255,255,',   // blanco
+        'rgba(255,255,255,',
+        'rgba(196,131,138,',   // rosa
+        'rgba(90,55,10,',      // marrón medio
+        'rgba(120,80,20,',     // dorado oscuro
+      ];
+      this.color = palette[Math.floor(Math.random() * palette.length)];
+    };
+    this.reset(true);
+  }
+
+  function initParticles() {
+    const count = Math.floor(W / 14); // más densidad
+    particles = Array.from({length: count}, () => new Particle());
+  }
+
+  function drawBill(p) {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.globalAlpha = p.alpha * 0.8;
+
+    // Rectángulo del billete
+    const r = 3;
+    const w = p.billW, h = p.billH;
+    ctx.beginPath();
+    ctx.moveTo(-w/2+r, -h/2);
+    ctx.arcTo(w/2, -h/2, w/2, h/2, r);
+    ctx.arcTo(w/2, h/2, -w/2, h/2, r);
+    ctx.arcTo(-w/2, h/2, -w/2, -h/2, r);
+    ctx.arcTo(-w/2, -h/2, w/2, -h/2, r);
+    ctx.closePath();
+
+    // Relleno semitransparente
+    ctx.fillStyle = 'rgba(42,28,8,0.12)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(42,28,8,0.4)';
+    ctx.lineWidth = 0.7;
+    ctx.stroke();
+
+    // Línea decorativa interior
+    ctx.beginPath();
+    ctx.rect(-w/2+3, -h/2+2, w-6, h-4);
+    ctx.strokeStyle = 'rgba(42,28,8,0.2)';
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+
+    // Símbolo $ en el centro
+    ctx.fillStyle = 'rgba(42,28,8,0.55)';
+    ctx.font = `bold ${h*0.6}px Jost, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('$', 0, 0);
+
+    ctx.restore();
+  }
+
+  function drawSymbol(p) {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.globalAlpha = p.alpha;
+    ctx.fillStyle = p.color + p.alpha + ')';
+    ctx.font = `${p.size}px Cormorant Garamond, serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(p.sym, 0, 0);
+    ctx.restore();
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+
+    particles.forEach(p => {
+      // Dibujar
+      if(p.isBill) drawBill(p); else drawSymbol(p);
+
+      // Mover
+      p.y   += p.speed;
+      p.x   += p.drift;
+      p.rot += p.rotV;
+
+      // Reset cuando sale del canvas
+      if(p.y > H + 30) p.reset(false);
+      if(p.x < -30)    p.x = W + 20;
+      if(p.x > W + 30) p.x = -20;
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  // Init
+  resize();
+  initParticles();
+  animate();
+
+  // Resize responsivo
+  window.addEventListener('resize', () => {
+    resize();
+    initParticles();
+  });
+})();
+</script>
+</body>
+</html>

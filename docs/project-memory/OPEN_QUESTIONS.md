@@ -59,6 +59,10 @@ Dos tablas: horas de entrega (sección 6) y rango de horas sugerido para el pilo
 
 Leslie: "no me gusta mucho 10 horas" (duda sobre si son por semana o por mes). Esto cambia un elemento central de D-009. En la propuesta v1, las 10 h eran un total único, repartido según las horas disponibles de cada persona. Opciones planteadas: horas definidas por la persona / otro número fijo / ancla en un periodo / ancla en el resultado (primer piloto).
 
-## Q14 — ¿Se aprueba la versión breve v1.2 para empezar a implementar? · ABIERTA · PREGUNTADA 2026-09-29
+## Q14 — ¿Se aprueba la versión breve v1.2 para empezar a implementar? · RESUELTA: sí, como copia aparte
 
 Sección 0 de `docs/proposals/CALCULATOR_REDESIGN_v1.md`.
+
+## Q15 — ¿La v2 está lista para reemplazar a la versión publicada? · ABIERTA
+
+Depende de la revisión de Leslie, Q10, Q11 y Q3.

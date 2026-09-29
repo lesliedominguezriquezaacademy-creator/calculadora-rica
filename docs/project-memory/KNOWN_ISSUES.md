@@ -1,6 +1,6 @@
 # KNOWN ISSUES
 
-Problemas verificados leyendo el código (`calculadora-app.html`, commit `b850794`). Ninguno ha sido corregido. Severidad: Alta / Media / Baja.
+Problemas verificados leyendo el código (`calculadora-app.html`, commit `b850794`). Ninguno está corregido en `calculadora-app.html`. En `calculadora-rica-v2.html` (no publicada) quedan resueltos: KI-03 a KI-13 y KI-16; KI-14 parcialmente (teclado y reduced-motion; el slider sigue estilizado solo para WebKit). Severidad: Alta / Media / Baja.
 
 ## Proyecto / documentación
 
@@ -31,3 +31,9 @@ Problemas verificados leyendo el código (`calculadora-app.html`, commit `b85079
 - **KI-16 · Baja · CSS huérfano** del paso de captura eliminado (`.capture-*`, `.rpb-*`, `.lock-badge`, líneas 281–444).
 - **KI-17 · Media · Sin analítica.** No hay forma de medir completitud del embudo ni clics en el CTA; el resultado no se envía con el lead a systeme.io.
 - **KI-18 · Baja · Sin tests, sin README, sin control de versiones local** (cambios subidos manualmente por la web de GitHub).
+
+## Calculadora v2 — observaciones abiertas
+
+- **KI-19 · Baja.** Con tarifa alta y precio bajo, el punto de equilibrio puede ser poco realista (p. ej. 390 clientes al mes). Es aritmética correcta y la nota invita a probar otro precio, pero se podría agregar una sugerencia explícita.
+- **KI-20 · Media.** El texto del CTA ya no promete "primer producto digital en 28 días", pero sigue pendiente confirmar qué cubre la Masterclass (Q10). "Cupos limitados" se mantuvo del original sin verificar.
+- **KI-21 · Baja.** Horas por semana por botón: 2 / 5 / 9 / 12 (la versión original usaba 2 / 5 / 10 / 20). Se muestran como aproximadas.

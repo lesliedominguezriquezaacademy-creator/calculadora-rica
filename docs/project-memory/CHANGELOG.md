@@ -2,6 +2,15 @@
 
 Cambios materiales del repositorio. Más reciente arriba.
 
+## 2026-09-29 — Calculadora RICA v2 (copia aparte, rama `claude/riqueza-master-agent-setup-atbcvj`)
+
+- Nuevo archivo `calculadora-rica-v2.html`, que implementa la propuesta v1.2. `calculadora-app.html` **no se modificó**.
+- Mismo CSS, botones y animación del hero de la versión actual (D-015). Son 4 pasos y 9 respuestas (D-016).
+- Horas por semana con leyenda "Recomendado: 4–6 horas por semana" (D-014).
+- Se eliminan los multiplicadores, el ROI, el precio de $297, la línea de tiempo, "10 ventas" y los nombres ficticios.
+- Resultado: activos, cálculo con los datos de la persona, posibilidad con plan de 4 pasos, escenario editable con fórmulas visibles y aviso fijo.
+- Correcciones incluidas: la fecha de la Masterclass incluye el mismo día (KI-12) y usa "ET"; copiar tiene alternativa si falla (KI-13); navegación con teclado (KI-14, parcial); respeta `prefers-reduced-motion`.
+
 ## 2026-09-29 — Inicialización del Master Agent (rama `claude/riqueza-master-agent-setup-atbcvj`)
 
 - Agregado `CLAUDE.md` (suministrado por Leslie en chat).
