@@ -4,7 +4,7 @@ Problemas verificados leyendo el código (`calculadora-app.html`, commit `b85079
 
 ## Proyecto / documentación
 
-- **KI-01 · Alta · Conflicto de alcance.** CLAUDE.md describe Riqueza App; el repo contiene solo la calculadora. Ver Q1.
+- **KI-01 · RESUELTO por D-008.** Conflicto de alcance repo ↔ CLAUDE.md. Pendiente residual: mover `CLAUDE.md` al repo nuevo (Q8).
 - **KI-02 · Alta · Documento rector ausente.** `docs/RIQUEZA_APP_MASTER_AGENT_PROJECT_v1.md` no existe. Ver Q2.
 
 ## Calculadora — riesgos de negocio/ética

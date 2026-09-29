@@ -20,3 +20,4 @@ Solo se registran decisiones **explícitas** de Leslie o documentadas. Las propu
 | ID | Fecha | Decisión | Motivo |
 |---|---|---|---|
 | D-007 | 2026-09-29 | `CLAUDE.md` suministrado por chat se versiona en la raíz del repo, en la rama de trabajo (no en `main`). | Cumplir D-001 (GitHub como fuente de verdad). Reversible: no se fusiona a `main` hasta resolver Q1. |
+| D-008 | 2026-09-29 | **Opción A:** `calculadora-rica` queda como lead magnet independiente. Riqueza App se construirá en un **repositorio nuevo** (aún no creado). | Leslie | Respuesta a Q1, sesión 2026-09-29 |

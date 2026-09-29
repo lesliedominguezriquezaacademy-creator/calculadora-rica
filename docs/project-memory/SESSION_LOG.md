@@ -15,4 +15,6 @@
 
 **No hecho (a propósito):** cambios de código, dependencias, OpenRouter, merge a `main`.
 
-**Siguiente:** Leslie responde Q1.
+**Decisión recibida:** Q1 → opción A (D-008).
+
+**Siguiente:** Leslie responde Q4 (tratamiento de proyecciones de ingresos en la calculadora).

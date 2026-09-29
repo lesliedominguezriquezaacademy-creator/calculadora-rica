@@ -4,7 +4,13 @@
 
 ## Fase actual
 
-**Fase 0 — Inicialización / Auditoría.** No se ha iniciado implementación. Bloqueada por una decisión de Leslie (ver `OPEN_QUESTIONS.md` Q1).
+**Fase 0 — Inicialización / Auditoría.** No se ha iniciado implementación.
+
+**Decisión D-008 (Leslie, 2026-09-29):** este repo = calculadora (lead magnet). Riqueza App = repo nuevo, pendiente de crear.
+
+Dos líneas de trabajo:
+1. **Calculadora (este repo):** siguiente = decidir tratamiento de proyecciones de ingresos (Q4), luego corregir KI-03, KI-04, KI-05.
+2. **Riqueza App (repo nuevo):** bloqueada por Q2 (documento rector) y Q7 (creación del repo).
 
 ## Estado verificado del repositorio
 
@@ -48,5 +54,5 @@ Desconocido. No hay evidencia en el repositorio de dónde se publica la calculad
 
 ## Bloqueadores
 
-1. Falta `docs/RIQUEZA_APP_MASTER_AGENT_PROJECT_v1.md` (documento rector según CLAUDE.md).
-2. No está confirmado si este repo es el repo de Riqueza App o solo de la calculadora.
+1. Calculadora: decisión Q4 (proyecciones de ingresos).
+2. Riqueza App: falta `docs/RIQUEZA_APP_MASTER_AGENT_PROJECT_v1.md` (Q2) y el repo nuevo (Q7).
