@@ -5,7 +5,9 @@ Fecha: 2026-09-29
 Base analizada: `calculadora-app.html` @ `b850794`
 Origen: instrucción de Leslie del 2026-09-29 (ver `docs/project-memory/DECISIONS.md` D-009).
 
-Nombre: **Calculadora de Valor** (D-012). Eje de la experiencia: "tu primer piloto".
+Nombre: **Calculadora de Valor** · nombre corto: **Calculadora RICA** (D-012, D-013). Eje de la experiencia: "tu primer piloto".
+
+Uso propuesto del nombre corto: `<title>` de la página ("Calculadora RICA · Riqueza Academy™"), el texto que se copia al compartir y el footer. El nombre completo va en la parte superior del hero.
 
 > **v1.1 (2026-09-29):** según D-010, se quitan las "10 horas" fijas. La persona elige cuántas horas invertiría (**H**) en su primera versión piloto, y todas las fórmulas usan H. Según D-011, la calculadora **sugiere un rango de horas por tipo de proyecto** (sección 7).
 
@@ -357,7 +359,7 @@ Copy: *"Para un piloto de {tipo}, sugerimos entre {min} y {max} horas. Es una re
 
 ### Copiar resultado
 ```
-Mi resultado · Calculadora de Valor · Riqueza Academy™
+Mi resultado · Calculadora RICA · Riqueza Academy™
 Activos: N · Posibilidad que exploro: {tipo}
 Mi primer piloto: {H} horas · {C5} semanas a mi ritmo
 #MiCaminoRICA
