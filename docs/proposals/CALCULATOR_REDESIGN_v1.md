@@ -1,11 +1,13 @@
-# CALCULATOR REDESIGN — v1 (PROPUESTA, NO APROBADA)
+# CALCULATOR REDESIGN — v1.1 (PROPUESTA, NO APROBADA)
 
 Estado: **Borrador para aprobación de Leslie.** No implementado.
 Fecha: 2026-09-29
 Base analizada: `calculadora-app.html` @ `b850794`
 Origen: instrucción de Leslie del 2026-09-29 (ver `docs/project-memory/DECISIONS.md` D-009).
 
-Nombre de trabajo: **Mapa de Valor · 10 Horas** (a confirmar).
+Nombre de trabajo: **Mapa de Valor · Tu Primer Piloto** (a confirmar).
+
+> **v1.1 (2026-09-29):** según D-010, se quitan las "10 horas" fijas. La persona elige cuántas horas invertiría (**H**) en su primera versión piloto, y todas las fórmulas usan H. Según D-011, la calculadora **sugiere un rango de horas por tipo de proyecto** (sección 7).
 
 ---
 
@@ -98,22 +100,22 @@ línea de tiempo   = costo_mes × {3,6,12,24}  vs  ganancia_año1 × {0, .3, 1, 
 ## 3. New concept
 
 **Pregunta central:**
-> ¿Qué podrías crear con lo que ya sabes si decidieras invertir 10 horas en convertirlo en una oportunidad?
+> ¿Qué podrías crear con lo que ya sabes? ¿Cuántas horas estarías dispuesta/o a invertir para convertirlo en tu primera versión piloto?
 
 **Promesa de la experiencia (no de ingresos):** en 5 minutos la persona sale con:
 
 1. Un **inventario de sus activos**: "No empiezo desde cero".
 2. Su **hora de referencia** actual: un cálculo con sus propios datos.
 3. **3 posibilidades** de proyecto que encajan con sus activos y preferencias, sin imponer una sola ruta.
-4. Un **plan de 10 horas** para una versión piloto de la posibilidad que elija.
+4. Un **plan para su primer piloto**, repartido en las H horas que ella elija.
 5. Un **escenario económico editable**, con sus propios supuestos a la vista, separado del cálculo.
 
 **Principios de diseño**
 
 - *Cálculo* = solo datos de la persona. *Escenario* = supuestos que la persona ve y puede mover. Se distinguen visualmente.
 - Ninguna cifra sin su fórmula visible.
-- Ningún número fijo que no venga de una variable ("10 ventas" pasa a ser "unidades necesarias para recuperar tus 10 horas", calculado).
-- El objetivo de las 10 horas es **validar**, no "lanzar un negocio".
+- Ningún número fijo que no venga de una variable ("10 ventas" pasa a ser "unidades necesarias para recuperar el valor de tus H horas", calculado). Tampoco hay un número fijo de horas: lo elige la persona.
+- El objetivo del piloto es **validar**, no "lanzar un negocio".
 
 **Encaje con la filosofía de Riqueza App**
 
@@ -122,7 +124,7 @@ línea de tiempo   = costo_mes × {3,6,12,24}  vs  ganancia_año1 × {0, .3, 1, 
 | KNOWLEDGE + EXPERIENCE + ASSETS | Paso 1: inventario |
 | VALUE | Paso 2: tu hora hoy + valor estimado |
 | OFFER | Pasos 3–4: posibilidades y elección |
-| BUSINESS | Paso 5: escenario + plan de 10 h |
+| BUSINESS | Paso 5: escenario + plan del piloto |
 | EXPANSION → IMPACT → LEGACY | Se mencionan como horizonte en el cierre; no se calculan |
 
 ---
@@ -141,10 +143,11 @@ Objetivo: no más de 12 respuestas en total, 5 pasos, unos 5 minutos.
 | U6 | 2 | Cuánto recibes hoy por hora | slider $5–200 | Cálculo |
 | U7 | 2 | Horas por semana que trabajas para otros | slider 0–60 | Cálculo |
 | U8 | 2 | Cuánto crees que vale una hora de tu conocimiento para quien lo recibe | slider $10–500 | Cálculo (brecha) + precio de referencia |
-| U9 | 2 | Horas por semana que podrías dedicar a esto | 4 rangos (mantener) | Cálculo (semanas para completar 10 h) |
+| U9 | 2 | Horas por semana que podrías dedicar a esto | 4 rangos (mantener) | Cálculo (semanas para completar H) |
+| **H** | 4 | **Horas totales que invertirías en tu primer piloto** (se pregunta **después** de elegir la posibilidad) | slider 1–60 h. Arranca en el **extremo inferior del rango sugerido** para ese tipo, que se muestra resaltado; la persona puede moverlo libremente | Cálculo y plan |
 | U10 | 3 | Cómo te gusta aportar valor | multi-selección (5) | Afinidad |
 | U11 | 3 | Cuánto de tu presencia quieres que requiera | alta / media / baja | Afinidad |
-| U12 | 3 | Qué te ha frenado (mantener, opcional) | multi-selección (7 actuales) | Se refleja en el plan de 10 h, **sin costo en dinero** |
+| U12 | 3 | Qué te ha frenado (mantener, opcional) | multi-selección (7 actuales) | Se refleja en el plan del piloto, **sin costo en dinero** |
 
 **Activos (U5)**
 1. Experiencia práctica resolviendo un problema concreto
@@ -174,8 +177,8 @@ Objetivo: no más de 12 respuestas en total, 5 pasos, unos 5 minutos.
 C1  ingreso_mensual_actual   = U6 × U7 × 4.33             (52 semanas / 12 meses)
 C2  brecha_por_hora          = max(0, U8 − U6)
 C3  brecha_anual_estimada    = C2 × U7 × 52               ("según tu propia estimación")
-C4  valor_de_tus_10_horas    = 10 × U6                    (costo de oportunidad a tu tarifa actual)
-C5  semanas_para_10_horas    = ceil(10 / U9)
+C4  valor_de_tus_H_horas     = H × U6                     (costo de oportunidad a tu tarifa actual)
+C5  semanas_para_H_horas     = ceil(H / U9)
 ```
 
 ### B. Escenario (supuestos visibles y editables)
@@ -191,16 +194,16 @@ Cuatro familias de fórmula según cómo se entrega cada proyecto:
 
 ```
 E1  ingreso_bruto_escenario   = S2 × S3                               ("antes de costos, comisiones e impuestos")
-E2  horas_totales             = 10 (creación) + horas_de_entrega
+E2  horas_totales             = H (creación) + horas_de_entrega
 E3  valor_efectivo_por_hora   = E1 / E2
 E4  comparación               = E3 frente a U6                        ("hoy recibes $U6/h")
-E5  unidades_de_equilibrio    = ceil(C4 / S2)                         ("unidades para recuperar el valor de tus 10 horas")
+E5  unidades_de_equilibrio    = ceil(C4 / S2)                         ("unidades para recuperar el valor de tus H horas")
 E6  sensibilidad              = E3 con S3 × 0.5 · S3 · S3 × 2          ("si fuera la mitad / tu escenario / el doble")
 ```
 
 **Valores iniciales del escenario (todos anclados a datos de la persona o marcados como supuestos):**
 
-- **Unidades (S3):** empiezan en **E5, el punto de equilibrio**. La primera vista responde "¿qué haría falta para que esas 10 horas valieran lo mismo que a tu tarifa actual?". No es un número inventado de ventas.
+- **Unidades (S3):** empiezan en **E5, el punto de equilibrio**. La primera vista responde "¿qué haría falta para que esas H horas valieran lo mismo que a tu tarifa actual?". No es un número inventado de ventas.
 - **Precio (S2):**
   - Familia T: U8 × S4. Es tu propio valor estimado por hora multiplicado por las horas de entrega.
   - Familias G, P y R: U6. Es una hora de tu tarifa actual, y se etiqueta "punto de partida, no es una recomendación de precio".
@@ -244,24 +247,27 @@ Catálogo en un único objeto de configuración dentro del HTML, fácil de edita
 
 Cada tipo muestra en el resultado:
 - Qué es, en una línea.
-- "Tu versión piloto en 10 horas" (sección 7).
-- "Qué NO se logra en 10 horas".
+- "Tu versión piloto" (sección 7).
+- "Qué NO se logra con un piloto".
+- **Rango de horas sugerido para un piloto** (ver la tabla de abajo; es un supuesto que se revisa con Q12). Si H queda por debajo del rango, se muestra un aviso honesto y una versión más pequeña del piloto. Si queda por encima, se sugiere incluir más validación.
 - Requisito honesto.
 
 ---
 
 ## 7. 10-hour scenario
 
-Las 10 horas son el eje: **10 horas de trabajo estratégico para convertir un activo en una versión piloto y validarla.** No son para "lanzar un negocio".
+El eje es **tu primer piloto**: convertir un activo en una versión piloto y validarla, con las **H horas que la persona elige**. No es para "lanzar un negocio".
+
+Las horas de cada bloque son proporcionales a H (20 % / 30 % / 30 % / 20 %). Con H = 10, eso da 2 / 3 / 3 / 2 h.
 
 **Estructura común (se adapta a cada tipo):**
 
 | Bloque | Horas | Qué se hace | Resultado |
 |---|---|---|---|
-| 1 · Claridad | 2 h | Para quién es, qué problema resuelve, qué activo usas | 1 frase de oferta |
-| 2 · Diseño | 3 h | Formato, alcance, precio de prueba | Descripción de la oferta piloto |
-| 3 · Versión mínima | 3 h | Crear lo mínimo para entregarla o mostrarla | Piloto (índice, temario, primera sesión, borrador…) |
-| 4 · Validación | 2 h | Presentarla a personas reales de tu red o audiencia | Respuestas reales: sí / no / por qué |
+| 1 · Claridad | 20 % de H | Para quién es, qué problema resuelve, qué activo usas | 1 frase de oferta |
+| 2 · Diseño | 30 % de H | Formato, alcance, precio de prueba | Descripción de la oferta piloto |
+| 3 · Versión mínima | 30 % de H | Crear lo mínimo para entregarla o mostrarla | Piloto (índice, temario, primera sesión, borrador…) |
+| 4 · Validación | 20 % de H | Presentarla a personas reales de tu red o audiencia | Respuestas reales: sí / no / por qué |
 
 **Piloto por tipo (ejemplos):**
 - Servicio / Consultoría: una página de una oferta con alcance y precio, más conversaciones con personas de tu red.
@@ -275,8 +281,31 @@ Las 10 horas son el eje: **10 horas de trabajo estratégico para convertir un ac
 
 **Personalización con datos de la persona:**
 - "A tu ritmo de ~U9 h/semana, son unas **C5 semanas**."
-- "Esas 10 horas valen hoy **$C4** a tu tarifa actual." Esto encuadra la inversión con su propio dato.
+- "Esas H horas valen hoy **$C4** a tu tarifa actual." Esto encuadra la inversión con su propio dato.
 - Si marcó bloqueos (U12), el bloque que los aborda se resalta. Ej.: "No sé qué precio cobrar" → Bloque 2. "No sé si hay mercado" → Bloque 4.
+
+
+### Rango de horas sugerido para un piloto (SUPUESTO — pendiente de revisión de Leslie, Q12)
+
+"Piloto" significa una versión mínima que se puede mostrar a personas reales y validar. No es un producto terminado.
+
+| Tipo | Rango sugerido | Qué incluye el piloto |
+|---|---|---|
+| Servicio especializado | 4–8 h | Oferta en 1 página + conversaciones |
+| Consultoría | 6–10 h | Diagnóstico empaquetado + 1 caso piloto |
+| Coaching | 6–10 h | Estructura del proceso + sesión piloto |
+| Taller | 8–12 h | Temario + materiales básicos + convocatoria |
+| Programa grupal | 15–25 h | Mapa de módulos + semana 1 + lista de espera |
+| Producto digital | 10–20 h | Versión mínima de 1 componente |
+| Ebook / guía | 10–20 h | Índice + 1 capítulo de muestra |
+| Membresía | 10–15 h | Promesa, formato, primer contenido + lista de espera |
+| Experiencia / evento | 10–20 h | Concepto + logística mínima + convocatoria |
+| Licenciamiento / metodología | 15–30 h | Método documentado v0 |
+| Otro | 6–12 h | Lo define la persona |
+
+**Ritmo semanal:** el copy actual ya contiene una regla de negocio existente: "El Método Rica IA™ requiere un **mínimo de 4–6 horas semanales**" (línea 564). Se reutiliza como sugerencia de ritmo: "A tu ritmo de U9 h/semana, este piloto tomaría unas C5 semanas." Si U9 < 4, se muestra el aviso actual adaptado, sin juicio.
+
+Copy: *"Para un piloto de {tipo}, sugerimos entre {min} y {max} horas. Es una referencia, no una regla. Elige una cifra que puedas cumplir."*
 
 ---
 
@@ -285,7 +314,7 @@ Las 10 horas son el eje: **10 horas de trabajo estratégico para convertir un ac
 ### Hero
 - Eyebrow: `Riqueza Academy™ · Mapa de Valor`
 - Título: **¿Qué podrías crear** *con lo que ya sabes?*
-- Sub: Un ejercicio de 5 minutos para ver tu conocimiento y tu experiencia como activos, y explorar qué podrías construir con ellos en **10 horas de trabajo estratégico**.
+- Sub: Un ejercicio de 5 minutos para ver tu conocimiento y tu experiencia como activos, y explorar qué podrías construir con ellos y dar el primer paso con **una versión piloto a tu ritmo**.
 - Badge: `Gratis · Sin registro · Tus números, tus supuestos`
 
 ### Paso 1 · Lo que ya tienes
@@ -302,22 +331,24 @@ Las 10 horas son el eje: **10 horas de trabajo estratégico para convertir un ac
 - Título: No hay una sola forma de convertir conocimiento en valor.
 - Sub: Cuéntanos cómo te gusta trabajar. Así te mostramos posibilidades que encajan contigo, no una fórmula única.
 
-### Paso 4 · Tus 10 horas
-- Título: Si tuvieras **10 horas** para convertir parte de lo que sabes en algo nuevo, ¿por dónde empezarías?
+### Paso 4 · Tu primer piloto
+- Título: No necesitas construirlo todo. Solo una primera versión.
+- Elección (primero): ¿Por dónde empezarías?
+- Pregunta H (después): ¿Cuántas horas estarías dispuesta/o a invertir para crear tu primera versión piloto? *Para un piloto de {tipo} sugerimos entre {min} y {max} horas. Es una referencia, no una regla. Elige una cifra que puedas cumplir.*
 - Sub: Estas son las posibilidades que más encajan con tus respuestas. Elige una para explorarla. Puedes cambiarla después.
 
 ### Resultado · Tu Mapa de Valor
 - Encabezado: **{Tu tema / tu área}: no empiezas desde cero.**
 - Activos: "Ya tienes N activos con los que construir:" + lista.
 - Tu hora hoy (etiqueta **CÁLCULO**): "Hoy recibes $U6 por hora. Estimas que tu conocimiento vale $U8 por hora para quien lo recibe. Esa diferencia, según tus propios números, suma $C3 al año."
-- Tus 10 horas: "Tu versión piloto de {tipo} en 10 horas" + los 4 bloques + "Qué no se logra en 10 horas".
+- Tu primer piloto: "Tu versión piloto de {tipo} en {H} horas" + los 4 bloques + "Qué no se logra con un piloto".
 - Escenario (etiqueta **ESCENARIO · TUS SUPUESTOS**): "Juega con los números. Todo lo que ves aquí lo defines tú."
   - "Con {S3} {unidades} a ${S2}, el ingreso bruto del escenario sería ${E1}."
-  - "Sumando las 10 h de creación y {horas} h de entrega, cada hora invertida equivaldría a ${E3}. Hoy recibes ${U6}."
-  - "Para recuperar el valor de tus 10 horas (${C4}) harían falta {E5} {unidades} a este precio."
+  - "Sumando las {H} h de creación y {horas} h de entrega, cada hora invertida equivaldría a ${E3}. Hoy recibes ${U6}."
+  - "Para recuperar el valor de tus {H} horas (${C4}) harían falta {E5} {unidades} a este precio."
 - Aviso fijo, visible y no en letra minúscula:
   > Esto es un escenario construido con tus propios supuestos. No es una proyección ni una promesa de ingresos. Los resultados reales dependen de la demanda, de tu oferta, de tu ejecución y de factores que este ejercicio no mide. Las cifras son ingresos brutos, antes de costos, comisiones e impuestos.
-- Cierre: "El siguiente paso no es construir todo. Es validar una posibilidad con 10 horas bien invertidas."
+- Cierre: "El siguiente paso no es construir todo. Es validar una posibilidad con un primer piloto."
 
 ### CTA (sujeto a Q10)
 - Título: Trabaja tu mapa en vivo.
@@ -328,7 +359,7 @@ Las 10 horas son el eje: **10 horas de trabajo estratégico para convertir un ac
 ```
 Mi Mapa de Valor · Riqueza Academy™
 Activos: N · Posibilidad que exploro: {tipo}
-Mis 10 horas: {C5} semanas a mi ritmo
+Mi primer piloto: {H} horas · {C5} semanas a mi ritmo
 #MiCaminoRICA
 ```
 
@@ -348,10 +379,10 @@ Mis 10 horas: {C5} semanas a mi ritmo
 
 ### Transformar
 - Hero: de "¿Cuánto te cuesta no actuar?" a "¿Qué podrías crear con lo que ya sabes?".
-- Bloqueos: de costo oculto en dólares a entrada del plan de 10 horas.
+- Bloqueos: de costo oculto en dólares a entrada del plan del piloto.
 - Identidad (empleado/a, etc.): solo personaliza el copy.
 - Área: solo copy, sin multiplicador.
-- Pantalla de resultado: pasa de "costo + ROI + línea de tiempo" a "activos + tu hora hoy + posibilidades + 10 h + escenario".
+- Pantalla de resultado: pasa de "costo + ROI + línea de tiempo" a "activos + tu hora hoy + posibilidades + piloto + escenario".
 - Tarjeta de decisión "Sin actuar vs Con RICA": se reemplaza por el escenario editable.
 
 ### Eliminar
@@ -368,7 +399,7 @@ Mis 10 horas: {C5} semanas a mi ritmo
 - Paso de formas de aportar (U10, U11).
 - Catálogo de 11 posibilidades como objeto de configuración.
 - Afinidad (top 3 con motivo).
-- Plan de 10 horas por tipo.
+- Pregunta H (horas del piloto) y plan del piloto por tipo.
 - Escenario editable con fórmulas visibles y sensibilidad.
 - Accesibilidad básica en las opciones: `button` / `role`, teclado.
 
@@ -401,7 +432,7 @@ Aprobar el concepto con este alcance mínimo:
 1. Los 5 pasos y los 12 inputs descritos.
 2. Las 4 familias de fórmula; el escenario empieza en el punto de equilibrio (E5).
 3. Catálogo de 11 posibilidades; top 3 por afinidad.
-4. Plan de 10 horas con 4 bloques.
+4. Plan del piloto con 4 bloques proporcionales a H.
 5. Aviso de escenario fijo y visible.
 6. Mismo archivo, mismo diseño, sin dependencias.
 
@@ -417,7 +448,7 @@ Secuencia sugerida después de la aprobación:
 
 ## 12. DECISION NEEDED
 
-**¿Apruebas este nuevo concepto ("Mapa de Valor · 10 Horas") como base para el rediseño?**
+**¿Apruebas este nuevo concepto ("Mapa de Valor · Tu Primer Piloto", v1.1) como base para el rediseño?**
 - A) Sí, tal como está.
 - B) Sí, con cambios (indica cuáles).
 - C) No, hay que replantear la dirección.

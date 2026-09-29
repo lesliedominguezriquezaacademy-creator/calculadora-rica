@@ -23,4 +23,6 @@
 
 **Feedback:** a Leslie no le convence el ancla de "10 horas" (Q13). Q9 queda en espera.
 
-**Siguiente:** Leslie responde Q13.
+**Q13:** opción A (D-010). Leslie pidió además sugerir el tiempo recomendado (D-011). Propuesta actualizada a v1.1.
+
+**Siguiente:** Leslie responde Q9 (aprobar v1.1).
