@@ -18,6 +18,7 @@ Solo se registran decisiones **explícitas** de Leslie o documentadas. Las propu
 | D-009 | 2026-09-29 | **Dirección de la calculadora:** no se centra en prometer ingresos ni en una sola idea de negocio. Debe mostrar el valor del conocimiento, la experiencia y los activos; varias posibilidades de proyecto; **10 horas de trabajo estratégico como eje**; y números derivados de los datos de la persona, con supuestos explícitos, separando cálculo de escenario, sin lenguaje de promesa. Respeta KNOWLEDGE + EXPERIENCE + ASSETS → VALUE → OFFER → BUSINESS → EXPANSION → IMPACT → LEGACY. Leslie no eligió A/B/C de Q4. | Leslie | Instrucción de sesión 2026-09-29 |
 | D-010 | 2026-09-29 | Se elimina el ancla fija de "10 horas". El ancla es **"tu primer piloto"** y la persona elige cuántas horas invierte (H); las fórmulas usan H. | Leslie | Respuesta a Q13 (opción A) |
 | D-011 | 2026-09-29 | La calculadora **sugiere un tiempo recomendado** (rango de horas por tipo de proyecto) antes de que la persona elija H. Los rangos concretos siguen pendientes de revisión (Q12). | Leslie | Instrucción de sesión 2026-09-29 |
+| D-012 | 2026-09-29 | El nombre del producto es **"Calculadora de Valor"** (coincide con el README original: "Calculadora de Valor · Riqueza Academy™"). Se descarta "Mapa de Valor". | Leslie | Instrucción de sesión 2026-09-29 |
 
 ## Decisiones de la sesión de inicialización (agente, de bajo impacto y reversibles)
 

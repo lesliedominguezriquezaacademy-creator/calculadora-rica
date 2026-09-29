@@ -5,7 +5,7 @@ Fecha: 2026-09-29
 Base analizada: `calculadora-app.html` @ `b850794`
 Origen: instrucción de Leslie del 2026-09-29 (ver `docs/project-memory/DECISIONS.md` D-009).
 
-Nombre de trabajo: **Mapa de Valor · Tu Primer Piloto** (a confirmar).
+Nombre: **Calculadora de Valor** (D-012). Eje de la experiencia: "tu primer piloto".
 
 > **v1.1 (2026-09-29):** según D-010, se quitan las "10 horas" fijas. La persona elige cuántas horas invertiría (**H**) en su primera versión piloto, y todas las fórmulas usan H. Según D-011, la calculadora **sugiere un rango de horas por tipo de proyecto** (sección 7).
 
@@ -312,7 +312,7 @@ Copy: *"Para un piloto de {tipo}, sugerimos entre {min} y {max} horas. Es una re
 ## 8. Proposed copy
 
 ### Hero
-- Eyebrow: `Riqueza Academy™ · Mapa de Valor`
+- Eyebrow: `Riqueza Academy™ · Calculadora de Valor`
 - Título: **¿Qué podrías crear** *con lo que ya sabes?*
 - Sub: Un ejercicio de 5 minutos para ver tu conocimiento y tu experiencia como activos, y explorar qué podrías construir con ellos y dar el primer paso con **una versión piloto a tu ritmo**.
 - Badge: `Gratis · Sin registro · Tus números, tus supuestos`
@@ -337,7 +337,7 @@ Copy: *"Para un piloto de {tipo}, sugerimos entre {min} y {max} horas. Es una re
 - Pregunta H (después): ¿Cuántas horas estarías dispuesta/o a invertir para crear tu primera versión piloto? *Para un piloto de {tipo} sugerimos entre {min} y {max} horas. Es una referencia, no una regla. Elige una cifra que puedas cumplir.*
 - Sub: Estas son las posibilidades que más encajan con tus respuestas. Elige una para explorarla. Puedes cambiarla después.
 
-### Resultado · Tu Mapa de Valor
+### Resultado · Tu resultado de la Calculadora de Valor
 - Encabezado: **{Tu tema / tu área}: no empiezas desde cero.**
 - Activos: "Ya tienes N activos con los que construir:" + lista.
 - Tu hora hoy (etiqueta **CÁLCULO**): "Hoy recibes $U6 por hora. Estimas que tu conocimiento vale $U8 por hora para quien lo recibe. Esa diferencia, según tus propios números, suma $C3 al año."
@@ -357,7 +357,7 @@ Copy: *"Para un piloto de {tipo}, sugerimos entre {min} y {max} horas. Es una re
 
 ### Copiar resultado
 ```
-Mi Mapa de Valor · Riqueza Academy™
+Mi resultado · Calculadora de Valor · Riqueza Academy™
 Activos: N · Posibilidad que exploro: {tipo}
 Mi primer piloto: {H} horas · {C5} semanas a mi ritmo
 #MiCaminoRICA
@@ -448,7 +448,7 @@ Secuencia sugerida después de la aprobación:
 
 ## 12. DECISION NEEDED
 
-**¿Apruebas este nuevo concepto ("Mapa de Valor · Tu Primer Piloto", v1.1) como base para el rediseño?**
+**¿Apruebas este nuevo concepto ("Calculadora de Valor", v1.1) como base para el rediseño?**
 - A) Sí, tal como está.
 - B) Sí, con cambios (indica cuáles).
 - C) No, hay que replantear la dirección.

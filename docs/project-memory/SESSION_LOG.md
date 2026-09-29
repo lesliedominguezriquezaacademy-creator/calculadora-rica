@@ -25,4 +25,6 @@
 
 **Q13:** opción A (D-010). Leslie pidió además sugerir el tiempo recomendado (D-011). Propuesta actualizada a v1.1.
 
+**Nombre:** "Calculadora de Valor" (D-012).
+
 **Siguiente:** Leslie responde Q9 (aprobar v1.1).
