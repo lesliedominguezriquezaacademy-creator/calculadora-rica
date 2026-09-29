@@ -15,6 +15,7 @@ Solo se registran decisiones **explícitas** de Leslie o documentadas. Las propu
 | D-005 | 2026-09-29 | Prioridades del MVP: onboarding → perfil → diagnóstico → análisis → activos → cuellos de botella → ruta → dashboard → siguiente acción → progreso. Excluidos: marketplace, CRM, red social, ecosistema de agentes, automatización compleja, entrenamiento de modelos. | Leslie | CLAUDE.md §7 |
 | D-006 | 2026-09-29 | No implementar hasta alinear el plan con Leslie. | Leslie | CLAUDE.md §8 |
 | D-008 | 2026-09-29 | **Opción A:** `calculadora-rica` queda como lead magnet independiente. Riqueza App se construirá en un **repositorio nuevo** (aún no creado). | Leslie | Respuesta a Q1, sesión 2026-09-29 |
+| D-009 | 2026-09-29 | **Dirección de la calculadora:** no se centra en prometer ingresos ni en una sola idea de negocio. Debe mostrar el valor del conocimiento, la experiencia y los activos; varias posibilidades de proyecto; **10 horas de trabajo estratégico como eje**; y números derivados de los datos de la persona, con supuestos explícitos, separando cálculo de escenario, sin lenguaje de promesa. Respeta KNOWLEDGE + EXPERIENCE + ASSETS → VALUE → OFFER → BUSINESS → EXPANSION → IMPACT → LEGACY. Leslie no eligió A/B/C de Q4. | Leslie | Instrucción de sesión 2026-09-29 |
 
 ## Decisiones de la sesión de inicialización (agente, de bajo impacto y reversibles)
 

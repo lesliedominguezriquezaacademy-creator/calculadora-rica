@@ -17,4 +17,8 @@
 
 **Decisión recibida:** Q1 → opción A (D-008).
 
-**Siguiente:** Leslie responde Q4 (tratamiento de proyecciones de ingresos en la calculadora).
+**Q4:** Leslie no eligió A/B/C y pidió un rediseño conceptual (D-009).
+
+**Hecho:** auditoría de fórmulas, variables y copy; propuesta en `docs/proposals/CALCULATOR_REDESIGN_v1.md`. Sin cambios de código.
+
+**Siguiente:** Leslie responde Q9 (aprobar el concepto).

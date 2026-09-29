@@ -19,7 +19,7 @@ CLAUDE.md lo declara obligatorio. No existe en el repo ni en su historial. Tampo
 
 No hay configuración de hosting en el repo (¿systeme.io embebido, GitHub Pages, otro?). Necesario para saber si un cambio en `main` impacta producción.
 
-## Q4 — ¿La lógica financiera de la calculadora está aprobada? · ABIERTA · PREGUNTADA 2026-09-29
+## Q4 — ¿La lógica financiera de la calculadora está aprobada? · REENCAUZADA → D-009 y Q9
 
 Multiplicadores por área (`AREA_MULT`), factor de experiencia, factor de conversión por horas (15–60 %), precio `$297` y proyección a 24 meses (×2.8) están codificados sin fuente documentada. Ver KI-03.
 
@@ -38,3 +38,19 @@ Depende de D-008. No se creará sin confirmación explícita de Leslie (acción 
 ## Q8 — ¿Qué hacer con `CLAUDE.md` en este repo? · ABIERTA
 
 Describe Riqueza App, no la calculadora. Bajo D-008 pertenece al repo nuevo. Se mantiene aquí temporalmente (solo en la rama de trabajo) hasta crear ese repo.
+
+## Q9 — ¿Se aprueba el concepto "Mapa de Valor · 10 Horas"? · ABIERTA · PREGUNTADA 2026-09-29
+
+Propuesta: `docs/proposals/CALCULATOR_REDESIGN_v1.md`. Bloquea la implementación del rediseño.
+
+## Q10 — ¿Qué promete la Masterclass? · ABIERTA
+
+El CTA actual dice "convertir lo que ya sabes en tu primer producto digital, en 28 días". El nuevo concepto muestra varias rutas (servicio, taller, licencia…). El mensaje de la Masterclass debe coincidir con lo que realmente se enseña.
+
+## Q11 — ¿Se mantiene la animación "lluvia de dinero" del hero? · ABIERTA
+
+Contradice el tono sin promesas de D-009. Es una decisión de marca.
+
+## Q12 — Revisar los supuestos de horas de entrega por tipo de proyecto · ABIERTA
+
+Tabla de la sección 6 de la propuesta. Son supuestos del agente; Leslie debe validarlos antes de implementar.
