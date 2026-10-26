@@ -1,4 +1,6 @@
-# CALCULATOR REDESIGN — v1.2 (PROPUESTA, CONCEPTO APROBADO CON CAMBIOS)
+# CALCULATOR REDESIGN — v1.2 (HISTÓRICO)
+
+> **2026-10-26:** documento histórico. La implementación vigente es la **v3 en `main`** (`calculadora-app.html`), que parte de esta propuesta pero usa un catálogo de 5 opciones. Si algo de aquí contradice la v3, manda la v3.
 
 Estado: concepto aprobado con cambios por Leslie (Q9 = B). La **sección 0 (v1.2)** manda sobre cualquier parte de las secciones 3–11 que la contradiga. No implementado.
 Fecha: 2026-09-29

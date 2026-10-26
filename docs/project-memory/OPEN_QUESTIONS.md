@@ -23,7 +23,7 @@ No hay configuración de hosting en el repo (¿systeme.io embebido, GitHub Pages
 
 Multiplicadores por área (`AREA_MULT`), factor de experiencia, factor de conversión por horas (15–60 %), precio `$297` y proyección a 24 meses (×2.8) están codificados sin fuente documentada. Ver KI-03.
 
-## Q5 — ¿El precio del Método Rica IA™ es $297? · ABIERTA
+## Q5 — ¿El precio del Método Rica IA™ es $297? · SIN OBJETO PARA LA CALCULADORA (la v3 no lo usa)
 
 Valor fijo en `calculadora-app.html` (`PRECIO = 297`).
 
@@ -63,6 +63,10 @@ Leslie: "no me gusta mucho 10 horas" (duda sobre si son por semana o por mes). E
 
 Sección 0 de `docs/proposals/CALCULATOR_REDESIGN_v1.md`.
 
-## Q15 — ¿La v2 está lista para reemplazar a la versión publicada? · ABIERTA
+## Q15 — ¿La v2 está lista para reemplazar a la versión publicada? · SUPERADA
 
-Depende de la revisión de Leslie, Q10, Q11 y Q3.
+Otra sesión de Claude Code publicó en `main` la **v3** (2026-09-30), construida sobre la v2. La v2 se eliminó de esta rama.
+
+## Q16 — ¿Dónde están definidos los roles Codex (comando/revisión) ↔ Claude Code (ejecución)? · ABIERTA
+
+Leslie dice que "ya está hecho". En este repo no existe `AGENTS.md`, y `CLAUDE.md` sigue describiendo a Claude Code como Master Agent/Orchestrator. Si la definición vive fuera del repo, conviene traerla aquí (`AGENTS.md`) para que ambos agentes lean la misma regla.

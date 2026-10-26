@@ -36,3 +36,15 @@
 **Implementado:** `calculadora-rica-v2.html`. Verificado con Chromium (Playwright) en móvil (390 px) y escritorio (1280 px): flujo completo, cálculos comprobados a mano, "ver todas", reset, sin scroll horizontal y sin errores de JS. También se probó un caso límite (sin selecciones y valores extremos).
 
 **Siguiente:** Leslie prueba la v2 y da su visto bueno o pide cambios.
+
+## 2026-10-26 — Sesión 2: Sincronización y coordinación entre agentes
+
+**Contexto:** Leslie usa Codex para comando y revisión, y Claude Code para ejecución. Preguntó por Duet (Anthropic) y Muse (Meta) para integrar ambos sistemas.
+
+**Recomendación:** no adoptar Duet ni Muse para integración. GitHub es el punto de integración: reglas compartidas, memoria en `main`, issues y PR. Duet queda como opción futura de resumen diario (D-018).
+
+**Hallazgo:** otra sesión publicó la v3 en `main` el 2026-09-30 sin conocer esta rama, lo que demuestra el problema de memoria fragmentada.
+
+**Hecho (opción A, D-017):** merge de `main`, se eliminó la v2, prueba de humo de la v3 (sin errores) y memoria actualizada.
+
+**Siguiente:** revisión de la rama (Codex/Leslie) y unión a `main`; resolver Q16 (roles en `AGENTS.md`).

@@ -1,6 +1,6 @@
 # KNOWN ISSUES
 
-Problemas verificados leyendo el código (`calculadora-app.html`, commit `b850794`). Ninguno está corregido en `calculadora-app.html`. En `calculadora-rica-v2.html` (no publicada) quedan resueltos: KI-03 a KI-13 y KI-16; KI-14 parcialmente (teclado y reduced-motion; el slider sigue estilizado solo para WebKit). Severidad: Alta / Media / Baja.
+**Actualización 2026-10-26:** los KI-03 a KI-16 describen la **versión original (v1, commit `b850794`)**, que ya no está en `main`: la v3 la reemplazó el 2026-09-30. En la v3 se verificó que ya no existen el ROI, `$297`, los avatares "María Elena"/"Carlos", "10 ventas" ni la línea de tiempo (KI-03, KI-04), y que respeta `prefers-reduced-motion`. El resto de los KI de v1 no se ha re-auditado contra la v3 línea por línea. Severidad: Alta / Media / Baja.
 
 ## Proyecto / documentación
 
@@ -32,8 +32,15 @@ Problemas verificados leyendo el código (`calculadora-app.html`, commit `b85079
 - **KI-17 · Media · Sin analítica.** No hay forma de medir completitud del embudo ni clics en el CTA; el resultado no se envía con el lead a systeme.io.
 - **KI-18 · Baja · Sin tests, sin README, sin control de versiones local** (cambios subidos manualmente por la web de GitHub).
 
-## Calculadora v2 — observaciones abiertas
+## Calculadora v2 — observaciones (históricas: la v2 se eliminó; revisar si aplican a la v3)
 
 - **KI-19 · Baja.** Con tarifa alta y precio bajo, el punto de equilibrio puede ser poco realista (p. ej. 390 clientes al mes). Es aritmética correcta y la nota invita a probar otro precio, pero se podría agregar una sugerencia explícita.
 - **KI-20 · Media.** El texto del CTA ya no promete "primer producto digital en 28 días", pero sigue pendiente confirmar qué cubre la Masterclass (Q10). "Cupos limitados" se mantuvo del original sin verificar.
 - **KI-21 · Baja.** Horas por semana por botón: 2 / 5 / 9 / 12 (la versión original usaba 2 / 5 / 10 / 20). Se muestran como aproximadas.
+
+## Calculadora v3 (en `main`) — abiertas
+
+- **KI-22 · Media.** Sigue la animación "lluvia de dinero" en el hero (Q11).
+- **KI-23 · Media.** Sigue "Cupos limitados" en el CTA sin verificar (Q10).
+- **KI-17 sigue vigente:** sin analítica.
+- **KI-24 · Baja.** La v3 no ha tenido una auditoría completa de fórmulas y copy como la que se hizo a la v1; solo una prueba de humo en el navegador.

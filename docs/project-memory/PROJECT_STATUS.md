@@ -1,58 +1,55 @@
 # PROJECT STATUS
 
-Última actualización: 2026-09-29 (sesión de inicialización del Master Agent)
+Última actualización: 2026-10-26 (sesión del Master Agent: sincronización con `main`)
 
 ## Fase actual
 
-**Fase 1 — Calculadora RICA v2 en revisión.** `calculadora-rica-v2.html` está construida en la rama como copia aparte. La versión publicada (`calculadora-app.html`) no cambió.
+**Fase 1 — Calculadora RICA v3 en `main`.** La v3 reemplazó a la versión original en `calculadora-app.html` el 2026-09-30, desde otra sesión de Claude Code (commits `0e17648`, `575610b`, `3ff6234`).
 
-**Decisión D-008 (Leslie, 2026-09-29):** este repo = calculadora (lead magnet). Riqueza App = repo nuevo, pendiente de crear.
+Este repo es solo la calculadora (lead magnet), según D-008. Riqueza App irá en un repo nuevo, todavía sin crear.
 
-Dos líneas de trabajo:
-1. **Calculadora (este repo):** rediseño conceptual propuesto (`docs/proposals/CALCULATOR_REDESIGN_v1.md`), concepto aprobado con cambios (Q9); la versión breve v1.2 está pendiente de visto bueno para implementar (Q14). El rediseño resolvería KI-03 a KI-08, KI-10 y KI-16.
-2. **Riqueza App (repo nuevo):** bloqueada por Q2 (documento rector) y Q7 (creación del repo).
+## Estado verificado del repositorio (2026-10-26)
 
-## Estado verificado del repositorio
-
-Repositorio: `lesliedominguezriquezaacademy-creator/calculadora-rica`
-Ramas: `main` (única rama remota antes de esta sesión) y `claude/riqueza-master-agent-setup-atbcvj` (esta sesión).
-
-Contenido de `main` (commit `b850794`, 2026-09-17):
-
-| Archivo | Descripción |
+| Archivo | Estado |
 |---|---|
-| `calculadora-app.html` | Único archivo del proyecto. 1,245 líneas, ~63 KB. HTML + CSS + JS vanilla en un solo archivo. |
+| `calculadora-app.html` | **Calculadora RICA v3.** 1,348 líneas. Un solo HTML con CSS y JS vanilla, CSP estricta, sin backend ni cookies. |
+| `README.md` | Descripción del repo (agregado el 2026-09-30). |
+| `CLAUDE.md` | Entrypoint del Master Agent (en esta rama, pendiente de unirse a `main`). |
+| `docs/project-memory/` | Memoria del proyecto (en esta rama, pendiente de unirse a `main`). |
+| `docs/proposals/CALCULATOR_REDESIGN_v1.md` | Propuesta histórica que sirvió de base para v2 y v3. |
 
-No existe en `main`:
+Ya no existe `calculadora-rica-v2.html`: se eliminó porque la v3 en `main` la reemplazó.
 
-- `CLAUDE.md` (Leslie lo suministró por chat en esta sesión; se agregó en esta rama)
-- `docs/RIQUEZA_APP_MASTER_AGENT_PROJECT_v1.md` (**no existe en ninguna rama ni en el historial de git**)
-- README (existió en el commit inicial y fue borrado en `20a8ac5`)
-- `package.json`, dependencias, build, tests, CI, configuración de despliegue, backend, base de datos, variables de entorno
+### Qué hace la v3 (verificado en el navegador el 2026-10-26)
 
-## Qué es `calculadora-app.html` (verificado leyendo el código)
-
-Lead magnet estático: **"¿Cuánto te cuesta NO actuar? — Diagnóstico de Valor, Riqueza Academy™"**, en español.
-
-- Flujo de 5 pasos: Perfil → Situación → Mentalidad → Bloqueos → Resultado.
-- Entradas: género de trato, años de experiencia, área, tarifa por hora, horas vendidas/semana, horas disponibles, valor percibido por hora, modelo de cobro, identidad, bloqueos.
-- Salidas: "costo mensual de inacción", ROI del Método Rica IA™ (precio fijo en código: `$297`), línea de tiempo 0–24 meses, texto de diagnóstico personalizado.
-- CTA único: abre `https://lesliedominguezriquezaacademy.systeme.io/calculadora-optin` (Masterclass gratuita, fecha calculada como "tercer miércoles del mes", 7 PM EST).
-- Animación canvas de "lluvia de dinero" en el hero.
-- Sin backend, sin almacenamiento, sin analítica, sin captura de email propia (un paso de captura "4.5" existió y fue eliminado en `40db451`; su CSS quedó huérfano).
-- Dependencia externa única: Google Fonts (Cormorant Garamond, Jost).
-
-## Relación con el proyecto "Riqueza App" descrito en CLAUDE.md
-
-**CONFLICT DETECTED** — ver `OPEN_QUESTIONS.md` Q1 y `KNOWN_ISSUES.md` KI-01.
-
-CLAUDE.md describe una aplicación completa (backend, Riqueza AI Service, MockAIProvider, onboarding, perfil, diagnóstico, dashboard, progreso). Este repositorio contiene solo una calculadora estática de captación. Ninguno de los componentes de arquitectura de CLAUDE.md existe aquí.
+- **4 pasos + resultado:**
+  - Perfil: trato, años de experiencia y área.
+  - Lo que ya tienes: activos, talentos y dones, formas de aportar.
+  - Tu tiempo: tarifa actual, valor estimado y horas por semana, con la leyenda "Recomendado: 4–6 horas por semana".
+  - Posibilidades.
+- **Catálogo de 5 opciones:** coaching grupal, infoproducto, consultoría, taller y evento.
+- **Resultado:**
+  - "No empiezas desde cero" con los activos de la persona.
+  - Cálculo con sus datos.
+  - Hora convertida por opción, "del uno a uno al grupo" y guía de estructuras de precio.
+  - Plan del piloto en 4 pasos.
+  - Simulador editable.
+  - Aviso fijo: no es una promesa de ingresos y las cifras son brutas.
+- **CTA:** Masterclass gratuita en systeme.io.
+- **Prueba (Chromium, 390 px):** el flujo completo llega al resultado, sin errores de JS y sin scroll horizontal.
+- **Ya no aparecen:** ROI, `$297`, "María Elena", "10 ventas" ni "primer producto digital en 28 días".
 
 ## Hosting / despliegue
 
-Desconocido. No hay evidencia en el repositorio de dónde se publica la calculadora (ver `OPEN_QUESTIONS.md`).
+Desconocido (Q3). No hay configuración de hosting en el repo.
 
-## Bloqueadores
+## Coordinación entre agentes
 
-1. Calculadora: revisión de la v2 por Leslie; Q10 (mensaje de la Masterclass) y Q11 (lluvia de dinero) antes de publicar; Q3 (hosting) antes del merge.
-2. Riqueza App: falta `docs/RIQUEZA_APP_MASTER_AGENT_PROJECT_v1.md` (Q2) y el repo nuevo (Q7).
+Leslie usa **Codex** como centro de comando y revisión, y **Claude Code** para ejecutar. Según Leslie, los roles ya se corrigieron, pero en este repo no existe `AGENTS.md` ni otra definición de roles visible (Q16). `CLAUDE.md` todavía describe a Claude Code como "Master Agent / Orchestrator".
+
+## Bloqueadores y pendientes
+
+1. Unir esta rama a `main` para que la memoria sea compartida (revisión de Codex/Leslie).
+2. Calculadora: Q10 (mensaje de la Masterclass), Q11 (lluvia de dinero, sigue en la v3), Q3 (hosting), KI-17 (sin analítica).
+3. Riqueza App: Q2 (documento rector) y Q7 (repo nuevo).
+4. Roles entre agentes: Q16.

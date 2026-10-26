@@ -23,6 +23,8 @@ Solo se registran decisiones **explícitas** de Leslie o documentadas. Las propu
 | D-014 | 2026-09-29 | La persona elige **cuántas horas por semana** puede invertir (botones actuales 1–3 / 4–6 / 7–12 / 12+), con la leyenda **"Recomendado: 4–6 horas por semana"** (tomada de la regla existente del Método Rica IA™). **Reemplaza D-010 y D-011.** | Leslie | Instrucción de sesión 2026-09-29 |
 | D-015 | 2026-09-29 | Se mantienen el formato visual y los botones de la calculadora actual. | Leslie | Instrucción de sesión 2026-09-29 |
 | D-016 | 2026-09-29 | La experiencia debe durar unos **3 minutos**. | Leslie | Instrucción de sesión 2026-09-29 |
+| D-017 | 2026-10-26 | Sincronizar la rama de memoria con `main` (v3), eliminar la v2 obsoleta y dejar `CLAUDE.md` + `docs/project-memory/` listos para unirse a `main`, como memoria compartida entre Codex y Claude Code. | Leslie | Respuesta "opción A", sesión 2026-10-26 |
+| D-018 | 2026-10-26 | Herramientas: **Codex** = centro de comando y revisión; **Claude Code** = ejecución. Duet/Muse **no** se adoptan para integrar ambos sistemas; la integración es GitHub (reglas, memoria, issues/PR). | Leslie (roles); recomendación del agente aceptada (opción A) | Sesión 2026-10-26 |
 
 ## Decisiones de la sesión de inicialización (agente, de bajo impacto y reversibles)
 
